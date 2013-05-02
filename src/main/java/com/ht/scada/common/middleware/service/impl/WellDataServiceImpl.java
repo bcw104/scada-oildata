@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.ht.scada.common.middleware.service.WellService;
-import com.ht.scada.common.well.WellData;
-import com.ht.scada.common.well.WellStatus;
+import com.ht.scada.oildata.data.WellData;
+import com.ht.scada.oildata.data.WellStatus;
 
 /**
  * @author 薄成文

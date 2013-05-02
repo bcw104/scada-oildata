@@ -4,8 +4,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import com.ht.scada.common.well.WellData;
-import com.ht.scada.common.well.WellStatus;
+import com.ht.scada.oildata.data.WellData;
+import com.ht.scada.oildata.data.WellStatus;
+
 
 public interface WellService {
 	
