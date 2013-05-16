@@ -1,12 +1,12 @@
-package com.ht.scada.common.middleware.service.impl;
+package com.ht.scada.oildata.service.service.impl;
+
+import com.ht.scada.oildata.service.service.WellService;
+import com.ht.scada.oildata.WellData;
+import com.ht.scada.oildata.WellStatus;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-
-import com.ht.scada.common.middleware.service.WellService;
-import com.ht.scada.oildata.data.WellData;
-import com.ht.scada.oildata.data.WellStatus;
 
 /**
  * @author 薄成文
