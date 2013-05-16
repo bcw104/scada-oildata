@@ -1,4 +1,4 @@
-package com.ht.scada.data.entity;
+package com.ht.scada.oildata.entity;
 
 import java.util.Date;
 

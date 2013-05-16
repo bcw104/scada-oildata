@@ -1,6 +1,6 @@
 package com.ht.scada.oildata.service;
 
-import com.ht.scada.data.entity.FaultDiagnoseRecord;
+import com.ht.scada.oildata.entity.FaultDiagnoseRecord;
 
 import java.util.List;
 
