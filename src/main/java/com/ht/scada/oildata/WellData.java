@@ -45,63 +45,179 @@ public class WellData {
 	 */
 	private float minZaihe;
 	
-	private Date datetime;
+	/**
+	 * 故障诊断信息
+	 */
+	private String falutDiagnoseInfo;
 	
+	/**
+	 * 平衡度
+	 */
+	private float pingHengDu;
+	/**
+	 * 产液量
+	 */
+	private float chanYeLiang;
+	/**
+	 * 泵效
+	 */
+	private float bengXiao;
+	/**
+	 * 上冲程时间
+	 */
+	private float shangChongChengTime;
+	/**
+	 * 下冲程时间
+	 */
+	private float xiaChongChengTime;
+	/**
+	 * 日耗电量
+	 */
+	private float riHaoDian;
+	/**
+	 * 电表读数
+	 */
+	private float dianBiaoNum;
 	
-	public String getWellNum() {
+	/**
+	 * 时间
+	 */
+	private Date time;
+
+	public String getCode() {
 		return code;
 	}
-	public void setWellNum(String wellNum) {
-		this.code = wellNum;
+
+	public void setCode(String code) {
+		this.code = code;
 	}
+
 	public float[] getZaihe() {
 		return zaihe;
 	}
+
 	public void setZaihe(float[] zaihe) {
 		this.zaihe = zaihe;
 	}
+
 	public float[] getWeiyi() {
 		return weiyi;
 	}
+
 	public void setWeiyi(float[] weiyi) {
 		this.weiyi = weiyi;
 	}
+
 	public float getChongChengTime() {
 		return chongChengTime;
 	}
+
 	public void setChongChengTime(float chongChengTime) {
 		this.chongChengTime = chongChengTime;
 	}
+
 	public float getChongCi() {
 		return chongCi;
 	}
+
 	public void setChongCi(float chongCi) {
 		this.chongCi = chongCi;
 	}
+
 	public float getChongCheng() {
 		return chongCheng;
 	}
+
 	public void setChongCheng(float chongCheng) {
 		this.chongCheng = chongCheng;
 	}
+
 	public float getMaxZaihe() {
 		return maxZaihe;
 	}
+
 	public void setMaxZaihe(float maxZaihe) {
 		this.maxZaihe = maxZaihe;
 	}
+
 	public float getMinZaihe() {
 		return minZaihe;
 	}
+
 	public void setMinZaihe(float minZaihe) {
 		this.minZaihe = minZaihe;
 	}
-	
-	public Date getDatetime() {
-		return datetime;
+
+	public String getFalutDiagnoseInfo() {
+		return falutDiagnoseInfo;
+	}
+
+	public void setFalutDiagnoseInfo(String falutDiagnoseInfo) {
+		this.falutDiagnoseInfo = falutDiagnoseInfo;
+	}
+
+	public float getPingHengDu() {
+		return pingHengDu;
+	}
+
+	public void setPingHengDu(float pingHengDu) {
+		this.pingHengDu = pingHengDu;
+	}
+
+	public float getChanYeLiang() {
+		return chanYeLiang;
+	}
+
+	public void setChanYeLiang(float chanYeLiang) {
+		this.chanYeLiang = chanYeLiang;
+	}
+
+	public float getBengXiao() {
+		return bengXiao;
+	}
+
+	public void setBengXiao(float bengXiao) {
+		this.bengXiao = bengXiao;
+	}
+
+	public float getShangChongChengTime() {
+		return shangChongChengTime;
+	}
+
+	public void setShangChongChengTime(float shangChongChengTime) {
+		this.shangChongChengTime = shangChongChengTime;
+	}
+
+	public float getXiaChongChengTime() {
+		return xiaChongChengTime;
+	}
+
+	public void setXiaChongChengTime(float xiaChongChengTime) {
+		this.xiaChongChengTime = xiaChongChengTime;
+	}
+
+	public float getRiHaoDian() {
+		return riHaoDian;
+	}
+
+	public void setRiHaoDian(float riHaoDian) {
+		this.riHaoDian = riHaoDian;
+	}
+
+	public float getDianBiaoNum() {
+		return dianBiaoNum;
+	}
+
+	public void setDianBiaoNum(float dianBiaoNum) {
+		this.dianBiaoNum = dianBiaoNum;
+	}
+
+	public Date getTime() {
+		return time;
+	}
+
+	public void setTime(Date time) {
+		this.time = time;
 	}
 	
-	public void setDatetime(Date datetime) {
-		this.datetime = datetime;
-	}
 }
