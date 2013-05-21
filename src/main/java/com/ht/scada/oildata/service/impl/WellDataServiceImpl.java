@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import com.ht.scada.oildata.WellDGTData;
-import com.ht.scada.oildata.WellData;
+import com.ht.scada.oildata.entity.WellDGTData;
+import com.ht.scada.oildata.entity.WellData;
 import com.ht.scada.oildata.service.WellService;
 
 /**

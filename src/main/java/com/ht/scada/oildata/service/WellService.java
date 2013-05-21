@@ -2,8 +2,8 @@ package com.ht.scada.oildata.service;
 
 import java.util.Date;
 
-import com.ht.scada.oildata.WellDGTData;
-import com.ht.scada.oildata.WellData;
+import com.ht.scada.oildata.entity.WellDGTData;
+import com.ht.scada.oildata.entity.WellData;
 
 public interface WellService {
 	
