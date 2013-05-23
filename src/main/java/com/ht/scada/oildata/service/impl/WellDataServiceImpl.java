@@ -1,12 +1,12 @@
 package com.ht.scada.oildata.service.impl;
 
-import com.ht.scada.oildata.service.WellService;
-import com.ht.scada.oildata.WellData;
-import com.ht.scada.oildata.WellStatus;
-
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+
+import com.ht.scada.oildata.entity.WellDGTData;
+import com.ht.scada.oildata.entity.WellData;
+import com.ht.scada.oildata.service.WellService;
 
 /**
  * @author 薄成文
@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class WellDataServiceImpl implements WellService {
 	
-	@Override
 	public void saveWellSGTData(String code, float[] zaihe, float[] weiyi,
 			float chongcheng, float chongci) {
 		// TODO Auto-generated method stub
@@ -27,34 +26,34 @@ public class WellDataServiceImpl implements WellService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public String getLatestProductByWellNum(String wellNum) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getLatestWellFaultByWellNum(String wellNum) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public WellData getWellDataByWellNumAndDatetime(String wellNum,
 			Date datetime) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 
-	@Override
+	public String getLatestProductByWellNum(String wellNum) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getLatestWellFaultByWellNum(String wellNum) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
 	public double getDailyOilProduct(String code, Date date) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List<WellStatus> getWellStatus(Collection<String> codes) {
+	public WellDGTData getLatestWellDGTDataByWellNum(String wellNum)
+			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
