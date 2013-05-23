@@ -1,4 +1,4 @@
-package com.ht.scada.oildata.service;
+package com.ht.scada.oildata.service.service;
 
 import com.ht.scada.oildata.WellData;
 import com.ht.scada.oildata.WellStatus;
