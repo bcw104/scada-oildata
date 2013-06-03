@@ -78,6 +78,14 @@ public class WellData {
 	 * 电表读数
 	 */
 	private float dianBiaoNum;
+	/**
+	 * 上冲程能耗
+	 */
+	private float nenghaoShang;
+	/**
+	 * 下冲程能耗
+	 */
+	private float nenghaoXia;
 	
 	/**
 	 * 时间
@@ -219,5 +227,23 @@ public class WellData {
 	public void setTime(Date time) {
 		this.time = time;
 	}
+
+	public float getNenghaoXia() {
+		return nenghaoXia;
+	}
+
+	public void setNenghaoXia(float nenghaoXia) {
+		this.nenghaoXia = nenghaoXia;
+	}
+
+	public float getNenghaoShang() {
+		return nenghaoShang;
+	}
+
+	public void setNenghaoShang(float nenghaoShang) {
+		this.nenghaoShang = nenghaoShang;
+	}
+	
+	
 	
 }
