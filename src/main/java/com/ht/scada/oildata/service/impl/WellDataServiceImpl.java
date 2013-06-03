@@ -1,9 +1,9 @@
 package com.ht.scada.oildata.service.impl;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import com.ht.scada.oildata.entity.ChouYouGanShouLi;
 import com.ht.scada.oildata.entity.WellDGTData;
 import com.ht.scada.oildata.entity.WellData;
 import com.ht.scada.oildata.service.WellService;
@@ -26,12 +26,7 @@ public class WellDataServiceImpl implements WellService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public WellData getWellDataByWellNumAndDatetime(String wellNum,
-			Date datetime) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	
 
 	public String getLatestProductByWellNum(String wellNum) throws Exception {
@@ -54,6 +49,26 @@ public class WellDataServiceImpl implements WellService {
 	@Override
 	public WellDGTData getLatestWellDGTDataByWellNum(String wellNum)
 			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public WellData getWellDataByWellNumAndDatetime(String wellNum, Date time) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<WellData> getWellDataByWellNumAndDatetime(String wellNum,
+			Date startTime, Date endTime) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ChouYouGanShouLi> getLatestCYGShouLi(String wellNum) {
 		// TODO Auto-generated method stub
 		return null;
 	}
