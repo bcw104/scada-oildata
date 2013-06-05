@@ -75,5 +75,13 @@ public class FaultDiagnoseRecord {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	/**
+	 * 生成报警记录用
+	 * @return
+	 */
+	public String getReMark() {
+		return "故障类型为：" + name + (level==null?"":("；故障程度为：" + String.valueOf(level)));
+	}
 
 }
