@@ -13,5 +13,11 @@ public interface OilDataMessageListener {
      * @param record
      */
     void faultOccured(FaultDiagnoseRecord record);
+    
+    /**
+     * 故障报警恢复
+     * @param record
+     */
+    void faultResumed(FaultDiagnoseRecord record);
 
 }
