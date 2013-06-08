@@ -4,6 +4,8 @@ import com.ht.scada.security.entity.User;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+
 /**
  * 故障诊断记录
  * @author 薄成文
@@ -16,7 +18,10 @@ public class FaultDiagnoseRecord {
 	private String name;// 故障类型
 	private String info;// 故障信息
 	private Integer level;	// 故障程度 
+	@Column(name = "action_time")
 	private Date actionTime;
+	@Column(name = "resume_time")
+	private Date resumeTime;
 	
 	private User user;
 
@@ -76,6 +81,16 @@ public class FaultDiagnoseRecord {
 		this.user = user;
 	}
 	
+	
+	
+	public Date getResumeTime() {
+		return resumeTime;
+	}
+
+	public void setResumeTime(Date resumeTime) {
+		this.resumeTime = resumeTime;
+	}
+
 	/**
 	 * 生成报警记录用
 	 * @return
