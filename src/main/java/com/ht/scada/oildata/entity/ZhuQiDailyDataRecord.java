@@ -39,6 +39,79 @@ public class ZhuQiDailyDataRecord extends AbstractPersistable<Integer> {
 	 * 时间
 	 */
 	private Date datetime;
+	
+	/****************注汽报表补充*******************/
+	/**
+	 * 运行时间
+	 */
+	private float runTime;
+	/**
+	 * 日均瞬时注汽流量
+	 */
+	private float ssll;
+	/**
+	 * 日均压力
+	 */
+	private float yaLi;
+	/**
+	 * 日均温度
+	 */
+	private float wenDu;
+	/**
+	 * 日均干度
+	 */
+	private float ganDu;
+
+	
+
+	public float getRunTime() {
+		return runTime;
+	}
+
+
+	public void setRunTime(float runTime) {
+		this.runTime = runTime;
+	}
+
+
+	public float getSsll() {
+		return ssll;
+	}
+
+
+	public void setSsll(float ssll) {
+		this.ssll = ssll;
+	}
+
+
+	public float getYaLi() {
+		return yaLi;
+	}
+
+
+	public void setYaLi(float yaLi) {
+		this.yaLi = yaLi;
+	}
+
+
+	public float getWenDu() {
+		return wenDu;
+	}
+
+
+	public void setWenDu(float wenDu) {
+		this.wenDu = wenDu;
+	}
+
+
+	public float getGanDu() {
+		return ganDu;
+	}
+
+
+	public void setGanDu(float ganDu) {
+		this.ganDu = ganDu;
+	}
 
 
 	public String getCode() {

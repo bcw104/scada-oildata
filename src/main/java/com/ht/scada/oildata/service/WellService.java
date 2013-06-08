@@ -53,6 +53,14 @@ public interface WellService {
 	 */
 	WellDGTData getLatestWellDGTDataByWellNum(String wellNum) throws Exception;
 	
+	/**
+	 * 通过井号获得历史的电功图曲线数据
+	 * @return
+	 * @throws Exception
+	 */
+	WellDGTData geWellDGTDataByWellNumAndDatetime(String wellNum, Date time);
+	
+	
 //	/**
 //	 * 通过井号获取油井最新的产液量
 //	 * @param wellNum

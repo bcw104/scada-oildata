@@ -43,11 +43,11 @@ public class OilWellDailyDataRecord extends AbstractPersistable<Integer> {
 	 */
 	private float hanShui;
 	/**
-	 * 注汽
+	 * 注汽量
 	 */
 	private float zhuShui;
 	/**
-	 * 注水
+	 * 注水量
 	 */
 	private float zhuQi;
 
@@ -56,6 +56,59 @@ public class OilWellDailyDataRecord extends AbstractPersistable<Integer> {
 	 * 时间
 	 */
 	private Date datetime;
+	
+	/************** 补充日报表 *****************/
+	
+	/**
+	 * 冲程
+	 */
+	private float chongCheng;
+	/**
+	 * 冲次
+	 */
+	private float chongCi;
+	/**
+	 * 油压
+	 */
+	private float youYa;
+	/**
+	 * 套压
+	 */
+	private float taoYa;
+	/**
+	 * 回压
+	 */
+	private float huiYa;
+	/**
+	 * 动液面
+	 */
+	private float dongYeMian;
+	/**
+	 * 泵效
+	 */
+	private float bengXiao;
+	/**
+	 * 平衡度
+	 */
+	private float pingHengDu;
+	/**
+	 * 井口温度
+	 */
+	private float jingKouWenDu;
+	/**
+	 * 日平均电压
+	 */
+	private float avgU;
+	/**
+	 * 日平均电流
+	 */
+	private float avgI;
+	/**
+	 * 日开井时间
+	 */
+	private float runTime;
+	
+	
 
 
 	public String getCode() {
@@ -146,6 +199,128 @@ public class OilWellDailyDataRecord extends AbstractPersistable<Integer> {
 	public void setDatetime(Date datetime) {
 		this.datetime = datetime;
 	}
+
+
+	public float getChongCheng() {
+		return chongCheng;
+	}
+
+
+	public void setChongCheng(float chongCheng) {
+		this.chongCheng = chongCheng;
+	}
+
+
+	public float getChongCi() {
+		return chongCi;
+	}
+
+
+	public void setChongCi(float chongCi) {
+		this.chongCi = chongCi;
+	}
+
+
+	public float getYouYa() {
+		return youYa;
+	}
+
+
+	public void setYouYa(float youYa) {
+		this.youYa = youYa;
+	}
+
+
+	public float getTaoYa() {
+		return taoYa;
+	}
+
+
+	public void setTaoYa(float taoYa) {
+		this.taoYa = taoYa;
+	}
+
+
+	public float getHuiYa() {
+		return huiYa;
+	}
+
+
+	public void setHuiYa(float huiYa) {
+		this.huiYa = huiYa;
+	}
+
+
+	public float getDongYeMian() {
+		return dongYeMian;
+	}
+
+
+	public void setDongYeMian(float dongYeMian) {
+		this.dongYeMian = dongYeMian;
+	}
+
+
+	public float getBengXiao() {
+		return bengXiao;
+	}
+
+
+	public void setBengXiao(float bengXiao) {
+		this.bengXiao = bengXiao;
+	}
+
+
+	public float getPingHengDu() {
+		return pingHengDu;
+	}
+
+
+	public void setPingHengDu(float pingHengDu) {
+		this.pingHengDu = pingHengDu;
+	}
+
+
+	public float getJingKouWenDu() {
+		return jingKouWenDu;
+	}
+
+
+	public void setJingKouWenDu(float jingKouWenDu) {
+		this.jingKouWenDu = jingKouWenDu;
+	}
+
+
+	public float getAvgU() {
+		return avgU;
+	}
+
+
+	public void setAvgU(float avgU) {
+		this.avgU = avgU;
+	}
+
+
+	public float getAvgI() {
+		return avgI;
+	}
+
+
+	public void setAvgI(float avgI) {
+		this.avgI = avgI;
+	}
+
+
+	public float getRunTime() {
+		return runTime;
+	}
+
+
+	public void setRunTime(float runTime) {
+		this.runTime = runTime;
+	}
+	
+	
 
 
 }

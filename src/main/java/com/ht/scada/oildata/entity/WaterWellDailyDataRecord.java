@@ -35,12 +35,37 @@ public class WaterWellDailyDataRecord extends AbstractPersistable<Integer> {
 	 */
 	private float eleConsume;
 	
-
-
 	/**
 	 * 时间
 	 */
 	private Date datetime;
+	
+	/*******************补充生产管理***********************/
+	/**
+	 * 日均外输压力
+	 */
+	private float yaLi;
+	/**
+	 * 日均井口压力
+	 */
+	private float jingYa;
+	/**
+	 * 日均水温
+	 */
+	private float wenDu;
+	/**
+	 * 日均液位
+	 */
+	private float yeWei;
+	/**
+	 * 日均瞬时流量
+	 */
+	private float ssll;
+	/**
+	 * 日开井时间
+	 */
+	private float runTime;
+	
 
 
 	public String getCode() {
@@ -91,6 +116,66 @@ public class WaterWellDailyDataRecord extends AbstractPersistable<Integer> {
 
 	public void setDatetime(Date datetime) {
 		this.datetime = datetime;
+	}
+
+
+	public float getYaLi() {
+		return yaLi;
+	}
+
+
+	public void setYaLi(float yaLi) {
+		this.yaLi = yaLi;
+	}
+
+
+	public float getJingYa() {
+		return jingYa;
+	}
+
+
+	public void setJingYa(float jingYa) {
+		this.jingYa = jingYa;
+	}
+
+
+	public float getWenDu() {
+		return wenDu;
+	}
+
+
+	public void setWenDu(float wenDu) {
+		this.wenDu = wenDu;
+	}
+
+
+	public float getYeWei() {
+		return yeWei;
+	}
+
+
+	public void setYeWei(float yeWei) {
+		this.yeWei = yeWei;
+	}
+
+
+	public float getSsll() {
+		return ssll;
+	}
+
+
+	public void setSsll(float ssll) {
+		this.ssll = ssll;
+	}
+
+
+	public float getRunTime() {
+		return runTime;
+	}
+
+
+	public void setRunTime(float runTime) {
+		this.runTime = runTime;
 	}
 
 

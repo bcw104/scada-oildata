@@ -72,4 +72,11 @@ public class WellDataServiceImpl implements WellService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public WellDGTData geWellDGTDataByWellNumAndDatetime(String wellNum,
+			Date time) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
