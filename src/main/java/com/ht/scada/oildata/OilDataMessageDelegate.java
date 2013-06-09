@@ -35,13 +35,13 @@ public class OilDataMessageDelegate {
         if (listener != null) {
             FaultDiagnoseRecord record = objectMapper.readValue(message, FaultDiagnoseRecord.class);
             System.out.println(record);
-//            if (record.getResumeTime() == null) {
-//                // 新故障记录
-//                listener.faultOccured(record);
-//            } else {
-//                // 故障解除
-//                listener.faultResumed(record);
-//            }
+            if (record.getResumeTime() == null) {
+                // 新故障记录
+                listener.faultOccured(record);
+            } else {
+                // 故障解除
+                listener.faultResumed(record);
+            }
         }
 
     }

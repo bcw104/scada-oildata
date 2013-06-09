@@ -25,6 +25,11 @@
             <artifactId>scada-tag</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.ht.scada</groupId>
+            <artifactId>scada-data</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 
