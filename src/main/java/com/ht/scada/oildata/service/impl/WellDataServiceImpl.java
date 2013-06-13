@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ht.scada.common.tag.type.entity.VarSubType;
 import com.ht.scada.common.tag.util.VarGroupEnum;
@@ -21,10 +22,11 @@ import com.ht.scada.oildata.service.WellService;
  * @author 赵磊
  *
  */
+@Transactional
 @Service("wellDataService")
 public class WellDataServiceImpl implements WellService {
 	
-	@Inject
+	//@Inject
 	private RealtimeDataService realtimeDataService;
 	
 	public void saveWellSGTData(String code, float[] zaihe, float[] weiyi,

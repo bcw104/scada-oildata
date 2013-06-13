@@ -1,5 +1,7 @@
 package com.ht.scada.oildata.service;
 
+import org.springframework.stereotype.Service;
+
 import com.ht.scada.oildata.entity.GasWellDailyDataRecord;
 import com.ht.scada.oildata.entity.GasWellHourlyDataRecord;
 import com.ht.scada.oildata.entity.OilWellDailyDataRecord;

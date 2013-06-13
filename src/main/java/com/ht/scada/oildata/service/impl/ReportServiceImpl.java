@@ -3,6 +3,7 @@ package com.ht.scada.oildata.service.impl;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ht.scada.oildata.dao.GasWellDailyDataRecordDao;
 import com.ht.scada.oildata.dao.GasWellHourlyDataRecordDao;
@@ -32,6 +33,7 @@ import com.ht.scada.oildata.service.ReportService;
  * @author 赵磊
  *
  */
+@Transactional
 @Service("reportService")
 public class ReportServiceImpl implements ReportService {
 	@Inject
