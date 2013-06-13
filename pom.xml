@@ -11,7 +11,7 @@
 
     <groupId>com.ht.scada</groupId>
     <artifactId>scada-oildata</artifactId>
-    <name>油井服务类库</name>
+    <name>油田服务类库</name>
     <description>仅在数字化油田项目中使用</description>
 
     <dependencies>
