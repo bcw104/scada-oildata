@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.springframework.stereotype.Service;
+
 import com.ht.scada.common.tag.type.entity.VarSubType;
 import com.ht.scada.common.tag.util.VarGroupEnum;
 import com.ht.scada.common.tag.util.VarSubTypeEnum;
@@ -19,6 +21,7 @@ import com.ht.scada.oildata.service.WellService;
  * @author 赵磊
  *
  */
+@Service("wellDataService")
 public class WellDataServiceImpl implements WellService {
 	
 	@Inject
