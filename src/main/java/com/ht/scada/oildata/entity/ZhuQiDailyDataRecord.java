@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -36,9 +37,16 @@ public class ZhuQiDailyDataRecord extends AbstractPersistable<Integer> {
 	private float eleConsume;
 	
 	/**
-	 * 时间
+	 * 统计日期
 	 */
-	private Date datetime;
+        @Temporal(javax.persistence.TemporalType.DATE)
+	private Date statisticsDate;
+        
+        /**
+         * 插入时间
+         */
+        @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+        private Date saveDatetime;
 	
 	/****************注汽报表补充*******************/
 	/**
@@ -152,15 +160,21 @@ public class ZhuQiDailyDataRecord extends AbstractPersistable<Integer> {
 		this.eleConsume = eleConsume;
 	}
 
+    public Date getStatisticsDate() {
+        return statisticsDate;
+    }
 
-	public Date getDatetime() {
-		return datetime;
-	}
+    public void setStatisticsDate(Date statisticsDate) {
+        this.statisticsDate = statisticsDate;
+    }
 
+    public Date getSaveDatetime() {
+        return saveDatetime;
+    }
 
-	public void setDatetime(Date datetime) {
-		this.datetime = datetime;
-	}
+    public void setSaveDatetime(Date saveDatetime) {
+        this.saveDatetime = saveDatetime;
+    }
 
 
 	

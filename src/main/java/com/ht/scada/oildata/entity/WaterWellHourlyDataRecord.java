@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -38,9 +39,22 @@ public class WaterWellHourlyDataRecord extends AbstractPersistable<Integer> {
 	
 
 	/**
-	 * 时间
+	 * 统计日期
 	 */
-	private Date datetime;
+        @Temporal(javax.persistence.TemporalType.DATE)
+	private Date statisticsDate;
+        
+        /**
+         * 统计时间
+         */
+        @Temporal(javax.persistence.TemporalType.TIME)
+        private Date statisticsTime;
+
+        /**
+         * 插入时间
+         */
+        @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+        private Date saveDatetime;
 
 
 	public String getCode() {
@@ -84,15 +98,32 @@ public class WaterWellHourlyDataRecord extends AbstractPersistable<Integer> {
 		this.eleConsume = eleConsume;
 	}
 
+    public Date getStatisticsDate() {
+        return statisticsDate;
+    }
 
-	public Date getDatetime() {
-		return datetime;
-	}
+    public void setStatisticsDate(Date statisticsDate) {
+        this.statisticsDate = statisticsDate;
+    }
+
+    public Date getStatisticsTime() {
+        return statisticsTime;
+    }
+
+    public void setStatisticsTime(Date statisticsTime) {
+        this.statisticsTime = statisticsTime;
+    }
+
+    public Date getSaveDatetime() {
+        return saveDatetime;
+    }
+
+    public void setSaveDatetime(Date saveDatetime) {
+        this.saveDatetime = saveDatetime;
+    }
 
 
-	public void setDatetime(Date datetime) {
-		this.datetime = datetime;
-	}
+	
 
 
 	
