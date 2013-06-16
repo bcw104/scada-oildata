@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  * 天然气井日数据，24:00更新
@@ -30,6 +31,10 @@ public class GasWellDailyDataRecord extends AbstractPersistable<Integer> {
 	 * 一日开井状态(1为开井，0为停井。开井时间大于23就认为开井)
 	 */
 	private int runStatus;
+        /**
+	 * 日开井时间
+	 */
+	private float runTime;
 	/**
 	 * 用电量
 	 */
@@ -38,9 +43,16 @@ public class GasWellDailyDataRecord extends AbstractPersistable<Integer> {
 
 
 	/**
-	 * 时间
+	 * 统计日期
 	 */
-	private Date datetime;
+        @Temporal(javax.persistence.TemporalType.DATE)
+	private Date statisticsDate;
+        
+        /**
+         * 插入时间
+         */
+        @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+        private Date saveDatetime;
 
 
 	public String getCode() {
@@ -82,16 +94,32 @@ public class GasWellDailyDataRecord extends AbstractPersistable<Integer> {
 		this.eleConsume = eleConsume;
 	}
 
+    public Date getStatisticsDate() {
+        return statisticsDate;
+    }
 
-	public Date getDatetime() {
-		return datetime;
-	}
+    public void setStatisticsDate(Date statisticsDate) {
+        this.statisticsDate = statisticsDate;
+    }
+
+    public Date getSaveDatetime() {
+        return saveDatetime;
+    }
+
+    public void setSaveDatetime(Date saveDatetime) {
+        this.saveDatetime = saveDatetime;
+    }
+
+    public float getRunTime() {
+        return runTime;
+    }
+
+    public void setRunTime(float runTime) {
+        this.runTime = runTime;
+    }
 
 
-	public void setDatetime(Date datetime) {
-		this.datetime = datetime;
-	}
-
+	
 
 	
 }

@@ -29,7 +29,6 @@ public class ReportServiceImplTest {
 		oilWell.setBengXiao(0.8f);
 		oilWell.setChongCheng(4f);
 		oilWell.setChongCi(2.1f);
-		oilWell.setDatetime(new Date());
 		oilWell.setDongYeMian(900);
 		oilWell.setEleConsume(52);
 		oilWell.setHanShui(98);
