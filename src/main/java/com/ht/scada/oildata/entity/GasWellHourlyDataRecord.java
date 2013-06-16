@@ -31,6 +31,10 @@ public class GasWellHourlyDataRecord extends AbstractPersistable<Integer> {
 	 * 开井时间（分钟，即存储间隔）
 	 */
 	private int runTime;
+         /**
+	 * 启停状态(1为启，0为停)
+	 */
+	private int runStatus;
 	/**
 	 * 用电量
 	 */
@@ -118,6 +122,14 @@ public class GasWellHourlyDataRecord extends AbstractPersistable<Integer> {
 
     public void setSaveDatetime(Date saveDatetime) {
         this.saveDatetime = saveDatetime;
+    }
+
+    public int getRunStatus() {
+        return runStatus;
+    }
+
+    public void setRunStatus(int runStatus) {
+        this.runStatus = runStatus;
     }
 
 }
