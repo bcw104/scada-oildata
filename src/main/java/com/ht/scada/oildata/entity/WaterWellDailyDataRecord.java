@@ -3,6 +3,7 @@ package com.ht.scada.oildata.entity;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import java.util.Date;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -25,6 +26,7 @@ public class WaterWellDailyDataRecord extends AbstractPersistable<Integer> {
     /**
      * 水量
      */
+    @Column(columnDefinition="DECIMAL(10,3)")
     private float waterProduct;
     /**
      * 一日开井状态(1为开井，0为停井。开井时间大于23就认为开井)
@@ -33,6 +35,7 @@ public class WaterWellDailyDataRecord extends AbstractPersistable<Integer> {
     /**
      * 用电量
      */
+    @Column(columnDefinition="DECIMAL(10,3)")
     private float eleConsume;
     /**
      * 统计日期
@@ -50,26 +53,32 @@ public class WaterWellDailyDataRecord extends AbstractPersistable<Integer> {
     /**
      * 日均外输压力
      */
+    @Column(columnDefinition="DECIMAL(10,2)")
     private float yaLi;
     /**
      * 日均井口压力
      */
+    @Column(columnDefinition="DECIMAL(10,2)")
     private float jingYa;
     /**
      * 日均水温
      */
+    @Column(columnDefinition="DECIMAL(10,2)")
     private float wenDu;
     /**
      * 日均液位
      */
+    @Column(columnDefinition="DECIMAL(10,2)")
     private float yeWei;
     /**
      * 日均瞬时流量
      */
+    @Column(columnDefinition="DECIMAL(10,2)")
     private float ssll;
     /**
      * 日开井时间
      */
+    @Column(columnDefinition="DECIMAL(10,2)")
     private float runTime;
 
     public String getCode() {

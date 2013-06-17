@@ -3,6 +3,7 @@ package com.ht.scada.oildata.entity;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import java.util.Date;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -25,6 +26,7 @@ public class GasWellDailyDataRecord extends AbstractPersistable<Integer> {
 	/**
 	 * 产气量
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)")
 	private float gasProduct;
 	
 	/**
@@ -32,12 +34,14 @@ public class GasWellDailyDataRecord extends AbstractPersistable<Integer> {
 	 */
 	private int runStatus;
         /**
-	 * 日开井时间
+	 * 日开井时间（小时）
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)")
 	private float runTime;
 	/**
 	 * 用电量
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)")
 	private float eleConsume;
 	
 

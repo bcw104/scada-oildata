@@ -1,6 +1,7 @@
 package com.ht.scada.oildata.entity;
 
 import java.util.Date;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -25,6 +26,7 @@ public class ZhuShuiDailyDataRecord extends AbstractPersistable<Integer> {
 	/**
 	 * 注水量
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)")
 	private float water;
 	
 	/**
@@ -34,6 +36,7 @@ public class ZhuShuiDailyDataRecord extends AbstractPersistable<Integer> {
 	/**
 	 * 用电量
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)")
 	private float eleConsume;
 	
 /**
@@ -52,18 +55,22 @@ public class ZhuShuiDailyDataRecord extends AbstractPersistable<Integer> {
 	/**
 	 * 运行时间
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)")
 	private float runTime;
 	/**
 	 * 日均瞬时流量
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)")
 	private float ssll;
 	/**
 	 * 日均压力
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)")
 	private float yaLi;
 	/**
 	 * 日均温度
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)")
 	private float wenDu;
 	
 

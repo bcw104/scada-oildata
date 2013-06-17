@@ -3,6 +3,7 @@ package com.ht.scada.oildata.entity;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import java.util.Date;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -25,10 +26,12 @@ public class OilWellDailyDataRecord extends AbstractPersistable<Integer> {
 	/**
 	 * 产油量
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)") 
 	private float oilProduct;
 	/**
 	 * 产液量
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)") 
 	private float liquidProduct;
 	/**
 	 * 一日开井状态(1为开井，0为停井。开井时间大于23就认为开井)
@@ -37,19 +40,23 @@ public class OilWellDailyDataRecord extends AbstractPersistable<Integer> {
 	/**
 	 * 用电量
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)") 
 	private float eleConsume;
 	
 	/**
 	 * 含水
 	 */
+        @Column(columnDefinition="DECIMAL(10,4)") 
 	private float hanShui;
 	/**
 	 * 注汽量
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)") 
 	private float zhuShui;
 	/**
 	 * 注水量
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)") 
 	private float zhuQi;
 
 
@@ -72,50 +79,62 @@ public class OilWellDailyDataRecord extends AbstractPersistable<Integer> {
 	/**
 	 * 冲程
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)") 
 	private float chongCheng;
 	/**
 	 * 冲次
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)") 
 	private float chongCi;
 	/**
 	 * 油压
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)")
 	private float youYa;
 	/**
 	 * 套压
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)")
 	private float taoYa;
 	/**
 	 * 回压
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)")
 	private float huiYa;
 	/**
 	 * 动液面
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)")
 	private float dongYeMian;
 	/**
 	 * 泵效
 	 */
+        @Column(columnDefinition="DECIMAL(10,4)") 
 	private float bengXiao;
 	/**
 	 * 平衡度
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)") 
 	private float pingHengDu;
 	/**
 	 * 井口温度
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)") 
 	private float jingKouWenDu;
 	/**
 	 * 日平均电压
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)") 
 	private float avgU;
 	/**
 	 * 日平均电流
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)") 
 	private float avgI;
 	/**
-	 * 日开井时间
+	 * 日开井时间（小时）
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)") 
 	private float runTime;
 	
 	

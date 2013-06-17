@@ -1,6 +1,7 @@
 package com.ht.scada.oildata.entity;
 
 import java.util.Date;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -25,6 +26,7 @@ public class WaterWellHourlyDataRecord extends AbstractPersistable<Integer> {
 	/**
 	 * 水量
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)")
 	private float waterProduct;
 	
 	/**
@@ -38,6 +40,7 @@ public class WaterWellHourlyDataRecord extends AbstractPersistable<Integer> {
 	/**
 	 * 用电量
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)")
 	private float eleConsume;
 	
 	
