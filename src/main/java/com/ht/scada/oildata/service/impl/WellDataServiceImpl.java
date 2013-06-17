@@ -4,12 +4,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ht.scada.common.tag.type.entity.VarSubType;
 import com.ht.scada.common.tag.util.VarGroupEnum;
 import com.ht.scada.common.tag.util.VarSubTypeEnum;
 import com.ht.scada.data.service.RealtimeDataService;
@@ -28,27 +25,6 @@ public class WellDataServiceImpl implements WellService {
 	
 	//@Inject
 	private RealtimeDataService realtimeDataService;
-	
-	public void saveWellSGTData(String code, float[] zaihe, float[] weiyi,
-			float chongcheng, float chongci) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public String getLatestProductByWellNum(String wellNum) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getLatestWellFaultByWellNum(String wellNum) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public double getDailyOilProduct(String code, Date date) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	
 	@Override
 	public WellData getLatestWellDataByWellNum(String wellNum) throws Exception {
