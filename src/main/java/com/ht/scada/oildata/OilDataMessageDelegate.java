@@ -1,6 +1,6 @@
 package com.ht.scada.oildata;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.alibaba.fastjson.JSON;
 import com.ht.scada.oildata.entity.FaultDiagnoseRecord;
 
 import java.io.IOException;
@@ -13,12 +13,7 @@ import java.io.IOException;
  */
 public class OilDataMessageDelegate {
 
-    private ObjectMapper objectMapper;
     private OilDataMessageListener listener;
-
-    public OilDataMessageDelegate() {
-        objectMapper = new ObjectMapper();
-    }
 
     public void setListener(OilDataMessageListener listener) {
         this.listener = listener;
@@ -33,7 +28,7 @@ public class OilDataMessageDelegate {
         System.out.println("收到故障报警");
         System.out.println(message);
         if (listener != null) {
-            FaultDiagnoseRecord record = objectMapper.readValue(message, FaultDiagnoseRecord.class);
+            FaultDiagnoseRecord record = JSON.parseObject(message, FaultDiagnoseRecord.class);
             System.out.println(record);
 //            if (record.getResumeTime() == null) {
 //                // 新故障记录
