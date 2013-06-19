@@ -1,9 +1,11 @@
 package com.ht.scada.oildata.entity;
 
 import java.util.Date;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -24,6 +26,7 @@ public class ZhuShuiDailyDataRecord extends AbstractPersistable<Integer> {
 	/**
 	 * 注水量
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)")
 	private float water;
 	
 	/**
@@ -33,29 +36,41 @@ public class ZhuShuiDailyDataRecord extends AbstractPersistable<Integer> {
 	/**
 	 * 用电量
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)")
 	private float eleConsume;
 	
-	/**
-	 * 时间
+/**
+	 * 统计日期
 	 */
-	private Date datetime;
+        @Temporal(javax.persistence.TemporalType.DATE)
+	private Date statisticsDate;
+        
+        /**
+         * 插入时间
+         */
+        @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+        private Date saveDatetime;
 	
 	/***************补充生产管理报表*****************/
 	/**
 	 * 运行时间
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)")
 	private float runTime;
 	/**
 	 * 日均瞬时流量
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)")
 	private float ssll;
 	/**
 	 * 日均压力
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)")
 	private float yaLi;
 	/**
 	 * 日均温度
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)")
 	private float wenDu;
 	
 
@@ -102,14 +117,7 @@ public class ZhuShuiDailyDataRecord extends AbstractPersistable<Integer> {
 	}
 
 
-	public Date getDatetime() {
-		return datetime;
-	}
-
-
-	public void setDatetime(Date datetime) {
-		this.datetime = datetime;
-	}
+	
 
 
 	public float getRunTime() {
@@ -150,5 +158,21 @@ public class ZhuShuiDailyDataRecord extends AbstractPersistable<Integer> {
 	public void setWenDu(float wenDu) {
 		this.wenDu = wenDu;
 	}
+
+    public Date getStatisticsDate() {
+        return statisticsDate;
+    }
+
+    public void setStatisticsDate(Date statisticsDate) {
+        this.statisticsDate = statisticsDate;
+    }
+
+    public Date getSaveDatetime() {
+        return saveDatetime;
+    }
+
+    public void setSaveDatetime(Date saveDatetime) {
+        this.saveDatetime = saveDatetime;
+    }
 
 }

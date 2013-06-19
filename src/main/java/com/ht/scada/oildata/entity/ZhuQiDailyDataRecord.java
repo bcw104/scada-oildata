@@ -1,9 +1,11 @@
 package com.ht.scada.oildata.entity;
 
 import java.util.Date;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -24,6 +26,7 @@ public class ZhuQiDailyDataRecord extends AbstractPersistable<Integer> {
 	/**
 	 * 注汽量
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)")
 	private float gas;
 	
 	/**
@@ -33,33 +36,46 @@ public class ZhuQiDailyDataRecord extends AbstractPersistable<Integer> {
 	/**
 	 * 用电量
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)")
 	private float eleConsume;
 	
 	/**
-	 * 时间
+	 * 统计日期
 	 */
-	private Date datetime;
+        @Temporal(javax.persistence.TemporalType.DATE)
+	private Date statisticsDate;
+        
+        /**
+         * 插入时间
+         */
+        @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+        private Date saveDatetime;
 	
 	/****************注汽报表补充*******************/
 	/**
 	 * 运行时间
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)")
 	private float runTime;
 	/**
 	 * 日均瞬时注汽流量
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)")
 	private float ssll;
 	/**
 	 * 日均压力
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)")
 	private float yaLi;
 	/**
 	 * 日均温度
 	 */
+        @Column(columnDefinition="DECIMAL(10,2)")
 	private float wenDu;
 	/**
 	 * 日均干度
 	 */
+        @Column(columnDefinition="DECIMAL(10,3)")
 	private float ganDu;
 
 	
@@ -152,15 +168,21 @@ public class ZhuQiDailyDataRecord extends AbstractPersistable<Integer> {
 		this.eleConsume = eleConsume;
 	}
 
+    public Date getStatisticsDate() {
+        return statisticsDate;
+    }
 
-	public Date getDatetime() {
-		return datetime;
-	}
+    public void setStatisticsDate(Date statisticsDate) {
+        this.statisticsDate = statisticsDate;
+    }
 
+    public Date getSaveDatetime() {
+        return saveDatetime;
+    }
 
-	public void setDatetime(Date datetime) {
-		this.datetime = datetime;
-	}
+    public void setSaveDatetime(Date saveDatetime) {
+        this.saveDatetime = saveDatetime;
+    }
 
 
 	
