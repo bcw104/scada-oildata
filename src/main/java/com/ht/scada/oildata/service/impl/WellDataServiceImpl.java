@@ -24,8 +24,8 @@ import com.ht.scada.oildata.service.WellService;
  * @author 赵磊
  *
  */
-@Transactional
-@Service("wellDataService")
+//@Transactional
+//@Service("wellDataService")
 public class WellDataServiceImpl implements WellService {
 	
 	@Inject
