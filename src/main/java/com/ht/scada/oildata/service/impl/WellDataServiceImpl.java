@@ -22,8 +22,8 @@ import java.util.Map;
  * @author 赵磊
  *
  */
-@Transactional
-@Service("wellDataService")
+//@Transactional
+//@Service("wellDataService")
 public class WellDataServiceImpl implements WellService {
 	
 	@Inject
