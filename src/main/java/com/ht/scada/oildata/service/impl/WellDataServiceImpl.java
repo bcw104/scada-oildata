@@ -1,15 +1,5 @@
 package com.ht.scada.oildata.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.inject.Inject;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.ht.scada.common.tag.util.VarGroupEnum;
 import com.ht.scada.common.tag.util.VarSubTypeEnum;
 import com.ht.scada.data.kv.VarGroupData;
@@ -19,6 +9,14 @@ import com.ht.scada.oildata.entity.ChouYouGanShouLi;
 import com.ht.scada.oildata.entity.WellDGTData;
 import com.ht.scada.oildata.entity.WellData;
 import com.ht.scada.oildata.service.WellService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author 赵磊
@@ -47,8 +45,8 @@ public class WellDataServiceImpl implements WellService {
 			wellData.setMinZaihe(Float.valueOf(map.get(VarSubTypeEnum.ZUI_XIAO_ZAI_HE.toString().toLowerCase())));
 			wellData.setMaxZaihe(Float.valueOf(map.get(VarSubTypeEnum.ZUI_DA_ZAI_HE.toString().toLowerCase())));
 			
-			float[] weiyi = realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.WEI_YI_ARRAY.toString().toLowerCase());
-			float[] zaihe = realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.ZAI_HE_ARRAY.toString().toLowerCase());
+			float[] weiyi = null;//TODO:realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.WEI_YI_ARRAY.toString().toLowerCase());
+			float[] zaihe = null;//TODO:realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.ZAI_HE_ARRAY.toString().toLowerCase());
 			wellData.setWeiyi(weiyi);
 			wellData.setZaihe(zaihe);
 			
@@ -155,11 +153,11 @@ public class WellDataServiceImpl implements WellService {
 	public WellDGTData getLatestWellDGTDataByWellNum(String wellNum)
 			throws Exception {
 		WellDGTData wellDGTData = new WellDGTData();
-		float[] weiyi = realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.WEI_YI_ARRAY.toString().toLowerCase());
-		float[] ib = realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.DIAN_LIU_ARRAY.toString().toLowerCase());
-		float[] power = realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.GONG_LV_ARRAY.toString().toLowerCase());
-		float[] power_factor = realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.GONG_LV_YIN_SHU_ARRAY.toString().toLowerCase());
-		float[] dgt = realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.DIAN_GONG_TU_ARRAY.toString().toLowerCase());
+		float[] weiyi = null;//realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.WEI_YI_ARRAY.toString().toLowerCase());
+		float[] ib = null;//realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.DIAN_LIU_ARRAY.toString().toLowerCase());
+		float[] power = null;//realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.GONG_LV_ARRAY.toString().toLowerCase());
+		float[] power_factor = null;//realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.GONG_LV_YIN_SHU_ARRAY.toString().toLowerCase());
+		float[] dgt = null;//realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.DIAN_GONG_TU_ARRAY.toString().toLowerCase());
 		
 		wellDGTData.setWeiyi(weiyi);
 		wellDGTData.setIb(ib);
