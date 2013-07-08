@@ -29,8 +29,8 @@ import javax.inject.Inject;
  * @author 赵磊
  *
  */
-@Transactional
-@Service("scheduledService")
+//@Transactional
+//@Service("scheduledService")
 public class ScheduledServiceImpl implements ScheduledService {
 	@Inject
 	private RealtimeDataService realtimeDataService;
