@@ -13,6 +13,7 @@ public class String2FloatArrayUtil {
 		int i = 0;
 		for(String s : str) {
 			result[i] = Float.valueOf(s.trim());
+			i++;
 		}
 		return result;
 	}

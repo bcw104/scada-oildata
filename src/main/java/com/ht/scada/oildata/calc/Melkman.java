@@ -4,7 +4,6 @@ import java.util.List;
 
 /**
  * Melkman求凸包算法
- * 
  * @author 赵磊
  * 
  */
