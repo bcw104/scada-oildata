@@ -9,16 +9,16 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GTDataComputerProcess {
+public class GTDataComputerProcess implements GTDataComputer{
 	private static final Logger log = LoggerFactory
 			.getLogger(GTDataComputerProcess.class);
 
 	private int fault_code = 0; // 0为正常
 	private int fault_level = 0;	//故障严重程度，0为无，10为最严重
 
-	public Map<String, Object> calcSGTData(float weiyi[], float zaihe[],
-			float chongci, float chongchengshijian, float bengjing,
-			float oilDensity, float hanshuiliang) {
+        @Override
+	public Map<GTReturnKeyEnum, Object> calcSGTData(float weiyi[], float zaihe[],
+			float chongCi, float bengJing,	float oilDensity, float hanShuiLiang) {
 
 		final int n = weiyi.length; // 数据个数
 
@@ -468,38 +468,34 @@ public class GTDataComputerProcess {
 		float liquidProduct = 0;//立方米
 		//float product = 0;	//吨
 		float youxiaochongcheng = weiyi[pointArray[yxFlag].getIndex()];
-		log.debug("冲程时间：" + chongchengshijian);
-		if (chongci == 0) {// 冲次为0，用冲程时间来算一个小时产量
-			liquidProduct = (float) (Math.pow(bengjing / 2000, 2) * 3.1415926
-					* 3600 * youxiaochongcheng / chongchengshijian);
-		} else {
-			liquidProduct = (float) (Math.pow(bengjing / 2000, 2) * 3.1415926
-					* chongci *60* youxiaochongcheng);
-		}
+
+		liquidProduct = (float) (Math.pow(bengJing / 2000, 2) * 3.1415926
+					* chongCi *60* youxiaochongcheng);
+
 		
-		float areaProduct = (float) (Math.pow(bengjing / 2000, 2) * 3.1415926
-				* chongci *60* areaCC);;
+		float areaProduct = (float) (Math.pow(bengJing / 2000, 2) * 3.1415926
+				* chongCi *60* areaCC);;
 		
 		
 		//product = liquidProduct*hanshuiliang/100 + liquidProduct*(100-hanshuiliang)*oilDensity/100;
 
-		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Map<GTReturnKeyEnum, Object> resultMap = new HashMap<GTReturnKeyEnum, Object>();
 
 		float newChongCheng = new BigDecimal(chongcheng).setScale(2,
 				BigDecimal.ROUND_HALF_UP).floatValue();
-		resultMap.put("chongcheng", newChongCheng); // 添加冲程
+		resultMap.put(GTReturnKeyEnum.CHONG_CHENG, newChongCheng); // 添加冲程
 		log.debug("冲程：" + newChongCheng);
 
 		float newYouxiaochongcheng = new BigDecimal(youxiaochongcheng)
 				.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
-		resultMap.put("youxiaochongcheng", newYouxiaochongcheng);// 添加有效冲程
+		resultMap.put(GTReturnKeyEnum.YOU_XIAO_CHONG_CHENG, newYouxiaochongcheng);// 添加有效冲程
 		log.debug("有效冲程：" + newYouxiaochongcheng);
 
 		float newLiquidProduct = new BigDecimal(liquidProduct).setScale(3,
 				BigDecimal.ROUND_HALF_UP).floatValue();
-		resultMap.put("liquidProduct", newLiquidProduct); // 添加产液量
+		resultMap.put(GTReturnKeyEnum.LIQUID_PRODUCT, newLiquidProduct); // 添加产液量
 		log.debug("理论产液量：" + newLiquidProduct);
-		resultMap.put("areaProduct", areaProduct);	//添加面积产液量
+		resultMap.put(GTReturnKeyEnum.AREA_PRODUCT, areaProduct);	//添加面积产液量
 		
 		//resultMap.put("product", product);	//产液量（吨）
 
@@ -507,8 +503,8 @@ public class GTDataComputerProcess {
 				BigDecimal.ROUND_HALF_UP).floatValue();
 		float newMaxZaihe = new BigDecimal(maxZaihe).setScale(2,
 				BigDecimal.ROUND_HALF_UP).floatValue();
-		resultMap.put("minZaihe", newMinZaihe); // 添加最小载荷
-		resultMap.put("maxZaihe", newMaxZaihe); // 添加最大载荷
+		resultMap.put(GTReturnKeyEnum.MIN_ZAIHE, newMinZaihe); // 添加最小载荷
+		resultMap.put(GTReturnKeyEnum.MAX_ZAIHE, newMaxZaihe); // 添加最大载荷
 		log.debug("载荷最大值：" + newMaxZaihe);
 		log.debug("载荷最小值：" + newMinZaihe);
 
@@ -516,45 +512,45 @@ public class GTDataComputerProcess {
 				BigDecimal.ROUND_HALF_UP).floatValue();
 		float newPjxz = new BigDecimal(pjxz).setScale(2,
 				BigDecimal.ROUND_HALF_UP).floatValue();
-		resultMap.put("pjsz", newPjsz); // 添加平均上载
-		resultMap.put("pjxz", newPjxz); // 添加平均下载
+		resultMap.put(GTReturnKeyEnum.AVG_ZAIHE_SHANG, newPjsz); // 添加平均上载
+		resultMap.put(GTReturnKeyEnum.AVG_ZAIHE_XIA, newPjxz); // 添加平均下载
 		log.debug("平均上载：" + newPjsz);
 		log.debug("平均下载：" + newPjxz);
 		
-		resultMap.put("zaiheCha", newPjsz-newPjxz);	//添加载荷差
+		resultMap.put(GTReturnKeyEnum.ZAIHE_CHA, newPjsz-newPjxz);	//添加载荷差
 		log.debug("载荷差：" + (newPjsz-newPjxz));
 
 		float newGTArea = new BigDecimal(gtArea).setScale(2,
 				BigDecimal.ROUND_HALF_UP).floatValue();
 		float newAreaLL = new BigDecimal(areaLL).setScale(2,
 				BigDecimal.ROUND_HALF_UP).floatValue();
-		resultMap.put("gtArea", newGTArea); // 添加功图面积
-		resultMap.put("areaLL", newAreaLL); // 添加理论面积
+		resultMap.put(GTReturnKeyEnum.GT_AREA, newGTArea); // 添加功图面积
+		resultMap.put(GTReturnKeyEnum.GT_AREA_LI_LUN, newAreaLL); // 添加理论面积
 		log.debug("示功图面积：" + newGTArea);
 		log.debug("理论示功图面积：" + newAreaLL);
 
-		resultMap.put("gzzd", fault_code); // 故障诊断
+		resultMap.put(GTReturnKeyEnum.FAULT_DIAGNOSE_INFO, fault_code); // 故障诊断
 		log.debug("故障诊断代码：" + fault_code);
 		
-		resultMap.put("fault_level", fault_level);
+		resultMap.put(GTReturnKeyEnum.FAULT_DIAGNOSE_LEVEL, fault_level);
 		log.debug("故障程度：" + fault_level);
 
-		resultMap.put("AX", weiyi[pointArray[zsFlag].getIndex()]);
-		resultMap.put("AY", zaihe[pointArray[zsFlag].getIndex()]);
+		resultMap.put(GTReturnKeyEnum.POINT_AX, weiyi[pointArray[zsFlag].getIndex()]);
+		resultMap.put(GTReturnKeyEnum.POINT_AY, zaihe[pointArray[zsFlag].getIndex()]);
 		log.debug("左上点A  X:" + weiyi[pointArray[zsFlag].getIndex()] + " Y:"
 				+ zaihe[pointArray[zsFlag].getIndex()]);
 
-		resultMap.put("BX", weiyi[maxFlag]);
-		resultMap.put("BY", zaihe[maxFlag]);
+		resultMap.put(GTReturnKeyEnum.POINT_BX, weiyi[maxFlag]);
+		resultMap.put(GTReturnKeyEnum.POINT_BY, zaihe[maxFlag]);
 		log.debug("上死点B  X:" + weiyi[maxFlag] + " Y:" + zaihe[maxFlag]);
 
-		resultMap.put("CX", weiyi[pointArray[yxFlag].getIndex()]);
-		resultMap.put("CY", zaihe[pointArray[yxFlag].getIndex()]);
+		resultMap.put(GTReturnKeyEnum.POINT_CX, weiyi[pointArray[yxFlag].getIndex()]);
+		resultMap.put(GTReturnKeyEnum.POINT_CY, zaihe[pointArray[yxFlag].getIndex()]);
 		log.debug("右下点C  X:" + weiyi[pointArray[yxFlag].getIndex()] + " Y:"
 				+ zaihe[pointArray[yxFlag].getIndex()]);
 
-		resultMap.put("DX", weiyi[minFlag]);
-		resultMap.put("DY", zaihe[minFlag]);
+		resultMap.put(GTReturnKeyEnum.POINT_DX, weiyi[minFlag]);
+		resultMap.put(GTReturnKeyEnum.POINT_DY, zaihe[minFlag]);
 		log.debug("下死点D  X:" + weiyi[minFlag] + " Y:" + zaihe[minFlag]);
 
 //		if(absoluteEIndex<200 && absoluteFIndex<200) {

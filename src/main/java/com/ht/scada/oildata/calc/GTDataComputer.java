@@ -1,4 +1,4 @@
-package com.htong.alg;
+package com.ht.scada.oildata.calc;
 
 import java.util.Map;
 /**
@@ -12,11 +12,11 @@ public interface GTDataComputer {
 	 * @param weiyi					位移
 	 * @param zaihe					载荷
 	 * @param chongCi				冲次
-	 * @param bengjing				泵径(mm)
-	 * @param oilDensity                            油密度
-	 * @param hanshuiliang                          含水量(%)
+	 * @param bengJing				泵径(mm)
+	 * @param oilDensity                            原油密度
+	 * @param hanShuiLiang                          含水量(%)
 	 * @return 
 	 */
-	public Map<String, Object> calcSGTData(float weiyi[], float zaihe[],
-			float chongCi, float bengjing, float oilDensity, float hanshuiliang);
+	public Map<GTReturnKeyEnum, Object> calcSGTData(float weiyi[], float zaihe[],
+			float chongCi, float bengJing, float oilDensity, float hanShuiLiang);
 }
