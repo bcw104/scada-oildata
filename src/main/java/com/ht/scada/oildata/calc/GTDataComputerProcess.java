@@ -466,7 +466,7 @@ public class GTDataComputerProcess implements GTDataComputer{
 		
 		// 产液量
 		float liquidProduct = 0;//立方米
-		//float product = 0;	//吨
+		float product = 0;	//吨
 		float youxiaochongcheng = weiyi[pointArray[yxFlag].getIndex()];
 
 		liquidProduct = (float) (Math.pow(bengJing / 2000, 2) * 3.1415926
@@ -477,7 +477,8 @@ public class GTDataComputerProcess implements GTDataComputer{
 				* chongCi *60* areaCC);;
 		
 		
-		//product = liquidProduct*hanshuiliang/100 + liquidProduct*(100-hanshuiliang)*oilDensity/100;
+		//product = liquidProduct*hanShuiLiang + liquidProduct*(1-hanShuiLiang)*oilDensity/100;
+                product = liquidProduct*(1-hanShuiLiang);
 
 		Map<GTReturnKeyEnum, Object> resultMap = new HashMap<GTReturnKeyEnum, Object>();
 
@@ -497,7 +498,7 @@ public class GTDataComputerProcess implements GTDataComputer{
 		log.debug("理论产液量：" + newLiquidProduct);
 		resultMap.put(GTReturnKeyEnum.AREA_PRODUCT, areaProduct);	//添加面积产液量
 		
-		//resultMap.put("product", product);	//产液量（吨）
+		resultMap.put(GTReturnKeyEnum.OIL_PRODUCT, product);	//产油量（吨）
 
 		float newMinZaihe = new BigDecimal(minZaihe).setScale(2,
 				BigDecimal.ROUND_HALF_UP).floatValue();
