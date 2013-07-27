@@ -13,8 +13,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
  * @author 赵磊
  *
  */
-@Entity
-@Table(name="T_Test_SGT")
+//@Entity
+//@Table(name="T_Test_SGT")
 public class TestSGT extends AbstractPersistable<Integer>{
 	
 	/**

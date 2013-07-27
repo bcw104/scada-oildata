@@ -13,8 +13,8 @@ public class GTDataComputerProcess implements GTDataComputer{
 	private static final Logger log = LoggerFactory
 			.getLogger(GTDataComputerProcess.class);
 
-	private int fault_code = 0; // 0为正常
-	private int fault_level = 0;	//故障严重程度，0为无，10为最严重
+	private String faultInfo; //故障诊断信息
+	private int faultLevel = 0;	//故障严重程度，0为无，10为最严重
 
         @Override
 	public Map<GTReturnKeyEnum, Object> calcSGTData(float weiyi[], float zaihe[],
@@ -50,18 +50,10 @@ public class GTDataComputerProcess implements GTDataComputer{
 			weiyi[i] -= minWeiyi;
 		}
 
-		// for(int i = 0;i<weiyi.length;i++) {
-		// System.out.println(weiyi[i]);
-		// }
-		// for(int i = 0;i<weiyi.length;i++) {
-		// System.out.println(zaihe[i]);
-		// }
-
 		float chongcheng = weiyi[maxFlag] - weiyi[minFlag];
 
 		log.debug("上死点序号为：" + maxFlag);
 		log.debug("下死点序号为：" + minFlag);
-		
 		log.debug("上死点B  X:" + weiyi[maxFlag] + " Y:" + zaihe[maxFlag]);
 		log.debug("下死点D  X:" + weiyi[minFlag] + " Y:" + zaihe[minFlag]);
 
@@ -491,6 +483,8 @@ public class GTDataComputerProcess implements GTDataComputer{
 				.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
 		resultMap.put(GTReturnKeyEnum.YOU_XIAO_CHONG_CHENG, newYouxiaochongcheng);// 添加有效冲程
 		log.debug("有效冲程：" + newYouxiaochongcheng);
+                
+                resultMap.put(GTReturnKeyEnum.BENG_XIAO, newYouxiaochongcheng/newChongCheng);// 添加泵效
 
 		float newLiquidProduct = new BigDecimal(liquidProduct).setScale(3,
 				BigDecimal.ROUND_HALF_UP).floatValue();
@@ -530,11 +524,17 @@ public class GTDataComputerProcess implements GTDataComputer{
 		log.debug("示功图面积：" + newGTArea);
 		log.debug("理论示功图面积：" + newAreaLL);
 
-		resultMap.put(GTReturnKeyEnum.FAULT_DIAGNOSE_INFO, fault_code); // 故障诊断
-		log.debug("故障诊断代码：" + fault_code);
+                if(newYouxiaochongcheng<newChongCheng/2) {
+                    faultInfo = "产液量不足";
+                } else {
+                    faultInfo = "正常";
+                }
+                
+		resultMap.put(GTReturnKeyEnum.FAULT_DIAGNOSE_INFO, faultInfo); // 故障诊断
+		log.debug("故障诊断代码：" + faultInfo);
 		
-		resultMap.put(GTReturnKeyEnum.FAULT_DIAGNOSE_LEVEL, fault_level);
-		log.debug("故障程度：" + fault_level);
+		resultMap.put(GTReturnKeyEnum.FAULT_DIAGNOSE_LEVEL, faultLevel);
+		log.debug("故障程度：" + faultLevel);
 
 		resultMap.put(GTReturnKeyEnum.POINT_AX, weiyi[pointArray[zsFlag].getIndex()]);
 		resultMap.put(GTReturnKeyEnum.POINT_AY, zaihe[pointArray[zsFlag].getIndex()]);
