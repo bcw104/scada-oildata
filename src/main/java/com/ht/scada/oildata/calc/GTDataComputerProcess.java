@@ -17,7 +17,7 @@ public class GTDataComputerProcess implements GTDataComputer{
 	private int faultLevel = 0;	//故障严重程度，0为无，10为最严重
 
         @Override
-	public Map<GTReturnKeyEnum, Object> calcSGTData(float weiyi[], float zaihe[],
+	public Map<GTReturnKeyEnum, Object> calcSGTData(float weiyi[], float zaihe[],float power[],
 			float chongCi, float bengJing,	float oilDensity, float hanShuiLiang) {
 
 		final int n = weiyi.length; // 数据个数
@@ -533,7 +533,7 @@ public class GTDataComputerProcess implements GTDataComputer{
 		resultMap.put(GTReturnKeyEnum.FAULT_DIAGNOSE_INFO, faultInfo); // 故障诊断
 		log.debug("故障诊断代码：" + faultInfo);
 		
-		resultMap.put(GTReturnKeyEnum.FAULT_DIAGNOSE_LEVEL, faultLevel);
+		resultMap.put(GTReturnKeyEnum.FAULT_DIAGNOSE_LEVEL, faultLevel);//故障程度
 		log.debug("故障程度：" + faultLevel);
 
 		resultMap.put(GTReturnKeyEnum.POINT_AX, weiyi[pointArray[zsFlag].getIndex()]);
@@ -560,6 +560,21 @@ public class GTDataComputerProcess implements GTDataComputer{
 //			resultMap.put("FX", weiyi[absoluteFIndex]);
 //			resultMap.put("FY", zaihe[absoluteFIndex]);
 //		}
+                
+                float phd = 0;
+                float upPower = 0;
+                float downPower = 0;
+                float riPower = 0;
+                if(power != null) {
+                    phd = PhdCalc.gongLvCalc(power, maxFlag, minFlag);
+                    upPower = NengHaoCalc.nengHaoShang(power, maxFlag, minFlag, chongCi);
+                    downPower = NengHaoCalc.nengHaoXia(power, maxFlag, minFlag, chongCi);
+                    riPower = (upPower+downPower)*(chongCi*24*60);
+                }
+                resultMap.put(GTReturnKeyEnum.PING_HENG_DU, phd);   //平衡度
+                resultMap.put(GTReturnKeyEnum.NENG_HAO_SHANG, upPower); //上冲程能耗
+                resultMap.put(GTReturnKeyEnum.NENG_HAO_XIA, downPower); //下冲程能耗
+                resultMap.put(GTReturnKeyEnum.NENG_HAO_RI, riPower);    //日耗电量
 		
 
 		return resultMap;
