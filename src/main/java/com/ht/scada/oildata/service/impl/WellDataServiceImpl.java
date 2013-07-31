@@ -46,6 +46,11 @@ public class WellDataServiceImpl implements WellService {
             wellData.setCode(wellNum);
             wellData.setChongCheng(Float.valueOf(map.get(VarSubTypeEnum.CHONG_CHENG.toString().toLowerCase())));
             wellData.setChongCi(Float.valueOf(map.get(VarSubTypeEnum.CHONG_CI.toString().toLowerCase())));
+            if (wellData.getChongCi() <= 0) {
+                System.out.print("冲次为0");
+                return null;
+            }
+
             wellData.setChongChengTime(60 / wellData.getChongCi());
             wellData.setShangChongChengTime(60 / Float.valueOf(map.get(VarSubTypeEnum.SHANG_XING_CHONG_CI.toString().toLowerCase())));
             wellData.setXiaChongChengTime(60 / Float.valueOf(map.get(VarSubTypeEnum.XIA_XING_CHONG_CI.toString().toLowerCase())));
@@ -91,6 +96,11 @@ public class WellDataServiceImpl implements WellService {
             WellData wellData = new WellData();
             wellData.setCode(wellNum);
             wellData.setChongCheng(Float.valueOf(sgtData.getYcValueMap().get(VarSubTypeEnum.CHONG_CHENG.toString().toLowerCase())));
+
+            if (wellData.getChongCi() <= 0) {
+                System.out.print("冲次为0");
+                return null;
+            }
             wellData.setChongCi(Float.valueOf(sgtData.getYcValueMap().get(VarSubTypeEnum.CHONG_CI.toString().toLowerCase())));
             wellData.setChongChengTime(60 / wellData.getChongCi());
             wellData.setShangChongChengTime(60 / Float.valueOf(sgtData.getYcValueMap().get(VarSubTypeEnum.SHANG_XING_CHONG_CI.toString().toLowerCase())));
@@ -148,6 +158,11 @@ public class WellDataServiceImpl implements WellService {
                 wellData.setCode(wellNum);
                 wellData.setChongCheng(Float.valueOf(sgtData.getYcValueMap().get(VarSubTypeEnum.CHONG_CHENG.toString().toLowerCase())));
                 wellData.setChongCi(Float.valueOf(sgtData.getYcValueMap().get(VarSubTypeEnum.CHONG_CI.toString().toLowerCase())));
+                if (wellData.getChongCi() <= 0) {
+                    System.out.print("冲次为0");
+                    continue;
+                }
+
                 wellData.setChongChengTime(60 / wellData.getChongCi());
                 wellData.setShangChongChengTime(60 / Float.valueOf(sgtData.getYcValueMap().get(VarSubTypeEnum.SHANG_XING_CHONG_CI.toString().toLowerCase())));
                 wellData.setXiaChongChengTime(60 / Float.valueOf(sgtData.getYcValueMap().get(VarSubTypeEnum.XIA_XING_CHONG_CI.toString().toLowerCase())));
