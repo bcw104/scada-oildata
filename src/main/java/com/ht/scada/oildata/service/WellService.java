@@ -17,7 +17,7 @@ public interface WellService {
 	 * @throws Exception
 	 * @author 赵磊
 	 */
-	List<WellData> getWellDataByWellNumAndDatetime(String wellNum, Date startTime, Date endTime) throws Exception;
+	List<WellData> getWellDataByWellNumAndDatetime(String wellNum, Date startTime, Date endTime);
 	
 	/**
 	 * 通过井号和时间获得历史的油井示功图及相关信息
@@ -36,7 +36,7 @@ public interface WellService {
 	 * @throws Exception
 	 * @author 赵磊
 	 */
-	WellData getLatestWellDataByWellNum(String wellNum) throws Exception;
+	WellData getLatestWellDataByWellNum(String wellNum);
 	
 	/**
 	 * 通过井号获取抽油杆受力对象列表
@@ -50,7 +50,7 @@ public interface WellService {
 	 * @return
 	 * @throws Exception
 	 */
-	WellDGTData getLatestWellDGTDataByWellNum(String wellNum) throws Exception;
+	WellDGTData getLatestWellDGTDataByWellNum(String wellNum);
 	
 	/**
 	 * 通过井号获得历史的电功图曲线数据

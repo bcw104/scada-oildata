@@ -1,5 +1,15 @@
 package com.ht.scada.oildata.service.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ht.scada.common.tag.service.EndTagExtInfoService;
 import com.ht.scada.common.tag.util.EndTagExtNameEnum;
 import com.ht.scada.common.tag.util.VarGroupEnum;
@@ -15,20 +25,12 @@ import com.ht.scada.oildata.entity.WellData;
 import com.ht.scada.oildata.service.WellService;
 import com.ht.scada.oildata.util.String2FloatArrayUtil;
 
-
-import javax.inject.Inject;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 /**
  * @author 赵磊
  *
  */
-//@Transactional
-//@Service("wellDataService")
+@Transactional
+@Service("wellService")
 public class WellDataServiceImpl implements WellService {
 
     @Inject
@@ -39,7 +41,7 @@ public class WellDataServiceImpl implements WellService {
     private EndTagExtInfoService endTagExtInfoService;
 
     @Override
-    public WellData getLatestWellDataByWellNum(String wellNum) throws Exception {
+    public WellData getLatestWellDataByWellNum(String wellNum) {
         Map<String, String> map = realtimeDataService.getEndTagVarGroupInfo(wellNum, VarGroupEnum.YOU_JING_SGT.toString());
         if (map != null) {
             WellData wellData = new WellData();
@@ -52,8 +54,10 @@ public class WellDataServiceImpl implements WellService {
             }
 
             wellData.setChongChengTime(60 / wellData.getChongCi());
-            wellData.setShangChongChengTime(60 / Float.valueOf(map.get(VarSubTypeEnum.SHANG_XING_CHONG_CI.toString().toLowerCase())));
-            wellData.setXiaChongChengTime(60 / Float.valueOf(map.get(VarSubTypeEnum.XIA_XING_CHONG_CI.toString().toLowerCase())));
+//            wellData.setShangChongChengTime(60 / Float.valueOf(map.get(VarSubTypeEnum.SHANG_XING_CHONG_CI.toString().toLowerCase())));
+//            wellData.setXiaChongChengTime(60 / Float.valueOf(map.get(VarSubTypeEnum.XIA_XING_CHONG_CI.toString().toLowerCase())));
+            wellData.setShangChongChengTime(wellData.getChongChengTime()/2);
+            wellData.setXiaChongChengTime(wellData.getChongChengTime()/2);
             wellData.setMinZaihe(Float.valueOf(map.get(VarSubTypeEnum.ZUI_XIAO_ZAI_HE.toString().toLowerCase())));
             wellData.setMaxZaihe(Float.valueOf(map.get(VarSubTypeEnum.ZUI_DA_ZAI_HE.toString().toLowerCase())));
 
@@ -62,7 +66,8 @@ public class WellDataServiceImpl implements WellService {
             wellData.setWeiyi(weiyi);
             wellData.setZaihe(zaihe);
 
-            float[] power = String2FloatArrayUtil.string2FloatArrayUtil(realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.GONG_LV_ARRAY.toString().toLowerCase()), ",");
+            float[] power = null;
+            power = String2FloatArrayUtil.string2FloatArrayUtil(realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.GONG_LV_ARRAY.toString().toLowerCase()), ",");
             GTDataComputerProcess gtData = new GTDataComputerProcess();
             float bengJing = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.BENG_JING.toString()).getValue());
             float oilDensity = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.MI_DU.toString()).getValue());
@@ -103,8 +108,10 @@ public class WellDataServiceImpl implements WellService {
             }
             wellData.setChongCi(Float.valueOf(sgtData.getYcValueMap().get(VarSubTypeEnum.CHONG_CI.toString().toLowerCase())));
             wellData.setChongChengTime(60 / wellData.getChongCi());
-            wellData.setShangChongChengTime(60 / Float.valueOf(sgtData.getYcValueMap().get(VarSubTypeEnum.SHANG_XING_CHONG_CI.toString().toLowerCase())));
-            wellData.setXiaChongChengTime(60 / Float.valueOf(sgtData.getYcValueMap().get(VarSubTypeEnum.XIA_XING_CHONG_CI.toString().toLowerCase())));
+//            wellData.setShangChongChengTime(60 / Float.valueOf(sgtData.getYcValueMap().get(VarSubTypeEnum.SHANG_XING_CHONG_CI.toString().toLowerCase())));
+//            wellData.setXiaChongChengTime(60 / Float.valueOf(sgtData.getYcValueMap().get(VarSubTypeEnum.XIA_XING_CHONG_CI.toString().toLowerCase())));
+            wellData.setShangChongChengTime(wellData.getChongChengTime()/2);
+            wellData.setXiaChongChengTime(wellData.getChongChengTime()/2);
             wellData.setMinZaihe(Float.valueOf(sgtData.getYcValueMap().get(VarSubTypeEnum.ZUI_XIAO_ZAI_HE.toString().toLowerCase())));
             wellData.setMaxZaihe(Float.valueOf(sgtData.getYcValueMap().get(VarSubTypeEnum.ZUI_DA_ZAI_HE.toString().toLowerCase())));
 
@@ -142,7 +149,7 @@ public class WellDataServiceImpl implements WellService {
 
     @Override
     public List<WellData> getWellDataByWellNumAndDatetime(String wellNum,
-            Date startTime, Date endTime) throws Exception {
+            Date startTime, Date endTime) {
         List<VarGroupData> sgtDataList = historyDataService.getVarGroupData(wellNum, VarGroupEnum.YOU_JING_SGT, startTime, endTime, 20);
         VarGroupData dianData = historyDataService.getVarGroupData(wellNum, VarGroupEnum.DIAN_YM, endTime);
         List<VarGroupData> dgtDataList = historyDataService.getVarGroupData(wellNum, VarGroupEnum.YOU_JING_DGT, startTime, endTime, 20);
@@ -205,8 +212,7 @@ public class WellDataServiceImpl implements WellService {
     }
 
     @Override
-    public WellDGTData getLatestWellDGTDataByWellNum(String wellNum)
-            throws Exception {
+    public WellDGTData getLatestWellDGTDataByWellNum(String wellNum) {
         WellDGTData wellDGTData = new WellDGTData();
         float[] weiyi = String2FloatArrayUtil.string2FloatArrayUtil(realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.WEI_YI_ARRAY.toString().toLowerCase()), ",");
         float[] ib = String2FloatArrayUtil.string2FloatArrayUtil(realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.DIAN_LIU_ARRAY.toString().toLowerCase()), ",");
@@ -220,7 +226,8 @@ public class WellDataServiceImpl implements WellService {
         wellDGTData.setPower_factor(power_factor);
         wellDGTData.setDgt(dgt);
 
-        return wellDGTData;
+//        return wellDGTData;
+        return null;
     }
 
     @Override
