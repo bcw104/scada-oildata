@@ -22,8 +22,8 @@ import java.util.Date;
  * @author 赵磊
  *
  */
-@Transactional
-@Service("scheduledService1")
+//@Transactional
+//@Service("scheduledService1")
 public class ScheduledServiceImpl1 implements ScheduledService {
 
     @Override

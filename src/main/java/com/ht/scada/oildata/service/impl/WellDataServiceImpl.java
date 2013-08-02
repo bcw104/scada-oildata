@@ -66,8 +66,7 @@ public class WellDataServiceImpl implements WellService {
             wellData.setWeiyi(weiyi);
             wellData.setZaihe(zaihe);
 
-            float[] power = null;
-            power = String2FloatArrayUtil.string2FloatArrayUtil(realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.GONG_LV_ARRAY.toString().toLowerCase()), ",");
+            float[] power = String2FloatArrayUtil.string2FloatArrayUtil(realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.GONG_LV_ARRAY.toString().toLowerCase()), ",");
             GTDataComputerProcess gtData = new GTDataComputerProcess();
             float bengJing = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.BENG_JING.toString()).getValue());
             float oilDensity = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.MI_DU.toString()).getValue());
@@ -76,16 +75,17 @@ public class WellDataServiceImpl implements WellService {
             Map<GTReturnKeyEnum, Object> calcMap = gtData.calcSGTData(weiyi, zaihe, power, wellData.getChongCi(), bengJing, oilDensity, hanShuiLiang);
 
             wellData.setFalutDiagnoseInfo((String) calcMap.get(GTReturnKeyEnum.FAULT_DIAGNOSE_INFO));
-            wellData.setChanYeLiang((Float) calcMap.get(GTReturnKeyEnum.LIQUID_PRODUCT));
-            wellData.setPingHengDu((Float) calcMap.get(GTReturnKeyEnum.PING_HENG_DU));
+            wellData.setChanYeLiang((Float) calcMap.get(GTReturnKeyEnum.LIQUID_PRODUCT)*24);
+//            wellData.setPingHengDu((Float) calcMap.get(GTReturnKeyEnum.PING_HENG_DU));
             wellData.setBengXiao((Float) calcMap.get(GTReturnKeyEnum.BENG_XIAO));
 
             String zengZongDianNeng = realtimeDataService.getEndTagVarInfo(wellNum, VarSubTypeEnum.DL_ZX_Z.toString().toLowerCase());
             wellData.setDianBiaoNum(Float.valueOf(zengZongDianNeng));//正向有功总电能
 
-            wellData.setNenghaoShang((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_SHANG));
-            wellData.setNenghaoXia((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_XIA));
-            wellData.setRiHaoDian((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_RI));
+//            wellData.setNenghaoShang((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_SHANG));
+//            wellData.setNenghaoXia((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_XIA));
+//            wellData.setRiHaoDian((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_RI));
+            wellData.setTime(new Date());
 
             return wellData;
         }
@@ -140,6 +140,7 @@ public class WellDataServiceImpl implements WellService {
             wellData.setNenghaoShang((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_SHANG));
             wellData.setNenghaoXia((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_XIA));
             wellData.setRiHaoDian((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_RI));
+            wellData.setTime(time);
 
             return wellData;
         }
@@ -201,6 +202,8 @@ public class WellDataServiceImpl implements WellService {
                 wellData.setNenghaoShang((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_SHANG));
                 wellData.setNenghaoXia((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_XIA));
                 wellData.setRiHaoDian((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_RI));
+                
+                wellData.setTime(sgtData.getDatetime());
 
                 wellDataList.add(wellData);
             }
@@ -225,9 +228,10 @@ public class WellDataServiceImpl implements WellService {
         wellDGTData.setPower(power);
         wellDGTData.setPower_factor(power_factor);
         wellDGTData.setDgt(dgt);
+        wellDGTData.setTime(new Date());
 
-//        return wellDGTData;
-        return null;
+        return wellDGTData;
+//        return null;
     }
 
     @Override
@@ -247,6 +251,8 @@ public class WellDataServiceImpl implements WellService {
         wellDGTData.setPower(power);
         wellDGTData.setPower_factor(power_factor);
         wellDGTData.setDgt(dgt);
+        
+        wellDGTData.setTime(time);
 
         return wellDGTData;
     }

@@ -31,10 +31,11 @@ public class NengHaoCalc {
         for (int i = minFlag; i != maxFlag;) {
             upPower += power[i] * time;
             i++;
-            if (i == n) {
-                i -= n;
+            if (i == (n-1)) {
+                i -= (n-1);
             }
         }
+        System.out.println("上冲程能耗：" + upPower);
         return upPower;
     }
     
@@ -57,10 +58,11 @@ public class NengHaoCalc {
         for (int i = maxFlag; i != minFlag;) {
             downPower += power[i] * time;
             i++;
-            if (i == n) {
-                i -= n;
+            if (i == (n-1)) {
+                i -= (n-1);
             }
         }
+        System.out.println("下冲程能耗：" + downPower);
         return downPower;
     }
 }

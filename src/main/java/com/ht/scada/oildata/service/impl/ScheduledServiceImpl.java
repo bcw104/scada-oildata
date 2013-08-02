@@ -12,6 +12,7 @@ import com.ht.scada.oildata.entity.OilWellDailyDataRecord;
 import com.ht.scada.oildata.entity.OilWellHourlyDataRecord;
 import com.ht.scada.oildata.entity.WaterWellDailyDataRecord;
 import com.ht.scada.oildata.entity.WaterWellHourlyDataRecord;
+import com.ht.scada.oildata.entity.WellData;
 import com.ht.scada.oildata.entity.ZengYaZhanDailyDataRecord;
 import com.ht.scada.oildata.entity.ZhuQiDailyDataRecord;
 import com.ht.scada.oildata.entity.ZhuQiHourlyDataRecord;
@@ -21,6 +22,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ht.scada.oildata.service.ScheduledService;
+import com.ht.scada.oildata.service.WellService;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -29,17 +32,58 @@ import javax.inject.Inject;
  * @author 赵磊
  *
  */
-//@Transactional
-//@Service("scheduledService")
+@Transactional
+@Service("scheduledService")
 public class ScheduledServiceImpl implements ScheduledService {
 	@Inject
 	private RealtimeDataService realtimeDataService;
 	@Inject
 	private EndTagExtInfoService endTagExtInfoService;
+        @Inject
+        private WellService wellService;
 
     @Override
     public OilWellDailyDataRecord getYesterdayOilWellDailyDataRecordByCode(String code) {
-    	throw new UnsupportedOperationException("Not supported yet.");
+    	OilWellDailyDataRecord oilWell = new OilWellDailyDataRecord();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        oilWell.setStatisticsDate(cal.getTime());//昨天
+        oilWell.setCode(code);
+        WellData wellData = wellService.getLatestWellDataByWellNum(code);
+        
+        oilWell.setAvgI(0.2f);
+        oilWell.setAvgU(212f);
+        oilWell.setBengXiao(wellData.getBengXiao());
+        oilWell.setChongCheng(wellData.getChongCheng());
+        oilWell.setChongCi(wellData.getChongCi());
+        oilWell.setDongYeMian(900);
+        oilWell.setEleConsume(wellData.getRiHaoDian());
+        EndTagExtInfo extInfo = endTagExtInfoService.getByCodeAndKeyName(code, EndTagExtNameEnum.HAN_SHUI_LV.toString());  
+        oilWell.setHanShui(extInfo == null?0:Float.valueOf(extInfo.getValue()));
+        
+        oilWell.setLiquidProduct(wellData.getChanYeLiang());
+        oilWell.setOilProduct(oilWell.getLiquidProduct()*(1-oilWell.getHanShui()));
+        
+        oilWell.setHuiYa(0f);
+        oilWell.setJingKouWenDu(35.2f);
+        oilWell.setTaoYa(0f);
+        oilWell.setYouYa(0f);
+
+        oilWell.setPingHengDu(wellData.getPingHengDu());
+        String runStatus = realtimeDataService.getEndTagVarInfo(code, VarSubTypeEnum.QI_TING_ZHUANG_TAI.toString().toLowerCase());
+        if(runStatus.equals("true")) {
+        	oilWell.setRunStatus(1);
+        	oilWell.setRunTime(24);
+        } else {
+        	oilWell.setRunStatus(0);
+        	oilWell.setRunTime(23);
+        }
+
+        
+        oilWell.setZhuQi(0);
+        oilWell.setZhuShui(0);
+        oilWell.setSaveDatetime(new Date());
+        return oilWell;
     }
 
     @Override
@@ -49,15 +93,19 @@ public class ScheduledServiceImpl implements ScheduledService {
         oilWell.setStatisticsDate(date);
         oilWell.setStatisticsTime(date);
         oilWell.setCode(code);
-        oilWell.setEleConsume(12.2f);//TODO
-        EndTagExtInfo extInfo = endTagExtInfoService.getByCodeAndKeyName(code, EndTagExtNameEnum.HAN_SHUI_LV.toString());  
-        oilWell.setHanShui(extInfo == null?0:Float.valueOf(extInfo.getValue())/100);	//含水率
         
-        oilWell.setLiquidProduct(12.7f);
-        oilWell.setOilProduct(10);
+        WellData wellData = wellService.getLatestWellDataByWellNum(code);
+        
+        oilWell.setEleConsume(wellData.getRiHaoDian()*24*60/timeInterval);
+        
+        EndTagExtInfo extInfo = endTagExtInfoService.getByCodeAndKeyName(code, EndTagExtNameEnum.HAN_SHUI_LV.toString());  
+        oilWell.setHanShui(extInfo == null?0:Float.valueOf(extInfo.getValue()));	//含水率
+        
+        oilWell.setLiquidProduct(wellData.getChanYeLiang()*24*60/timeInterval);
+        oilWell.setOilProduct(oilWell.getLiquidProduct()*(1-oilWell.getHanShui()));
         
         String runStatus = realtimeDataService.getEndTagVarInfo(code, VarSubTypeEnum.QI_TING_ZHUANG_TAI.toString().toLowerCase());
-        if(runStatus.equals("1")) {
+        if(runStatus.equals("true")) {
         	oilWell.setRunStatus(1);
         	oilWell.setRunTime(timeInterval);
         } else {
