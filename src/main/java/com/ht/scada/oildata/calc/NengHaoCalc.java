@@ -26,7 +26,7 @@ public class NengHaoCalc {
         }
         float upPower = 0;  //上冲程能耗
         int n = power.length;
-        float time = 60 / chongCi / n;  //相邻两点的时间间隔
+        float time = 60 / chongCi / n /3600;  //相邻两点的时间间隔
 
         for (int i = minFlag; i != maxFlag;) {
             upPower += power[i] * time;
@@ -53,7 +53,7 @@ public class NengHaoCalc {
         }
         float downPower = 0;  //下冲程能耗
         int n = power.length;
-        float time = 60 / chongCi / n;  //相邻两点的时间间隔
+        float time = 60 / chongCi / n /3600;  //相邻两点的时间间隔
 
         for (int i = maxFlag; i != minFlag;) {
             downPower += power[i] * time;

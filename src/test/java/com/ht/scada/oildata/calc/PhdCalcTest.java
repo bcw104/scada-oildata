@@ -39,7 +39,7 @@ public class PhdCalcTest {
     /**
      * Test of dianLiuCalc method, of class PhdCalc.
      */
-    @Test
+    //@Test
     public void testDianLiuCalc() {
         System.out.println("dianLiuCalc");
         float expResult = 0.0F;
