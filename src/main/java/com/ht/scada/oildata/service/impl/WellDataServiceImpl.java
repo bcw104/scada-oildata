@@ -223,9 +223,11 @@ public class WellDataServiceImpl implements WellService {
         float[] power_factor = String2FloatArrayUtil.string2FloatArrayUtil(realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.GONG_LV_YIN_SHU_ARRAY.toString().toLowerCase()), ",");
         float[] dgt = String2FloatArrayUtil.string2FloatArrayUtil(realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.DIAN_GONG_TU_ARRAY.toString().toLowerCase()), ",");
 
-        if(ib != null && power != null) {
+        if(ib != null && power != null && power_factor != null && dgt !=null) {
             ib[ib.length -1] = ib[0];
             power[power.length - 1] = power[0];
+            power_factor[power.length - 1] = power_factor[0];
+            dgt[power.length - 1] = dgt[0];
         }
         
         wellDGTData.setWeiyi(weiyi);
