@@ -73,7 +73,7 @@ public class WellDataServiceImpl implements WellService {
             float hanShuiLiang = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.HAN_SHUI_LV.toString()).getValue());
 
             Map<GTReturnKeyEnum, Object> calcMap = gtData.calcSGTData(weiyi, zaihe, power, wellData.getChongCi(), bengJing, oilDensity, hanShuiLiang);
-
+            System.out.println("功图计算完毕！");
             wellData.setFalutDiagnoseInfo((String) calcMap.get(GTReturnKeyEnum.FAULT_DIAGNOSE_INFO));
             wellData.setChanYeLiang((Float) calcMap.get(GTReturnKeyEnum.LIQUID_PRODUCT)*24);
             wellData.setPingHengDu((Float) calcMap.get(GTReturnKeyEnum.PING_HENG_DU));
@@ -81,11 +81,14 @@ public class WellDataServiceImpl implements WellService {
 
             String zengZongDianNeng = realtimeDataService.getEndTagVarInfo(wellNum, VarSubTypeEnum.DL_ZX_Z.toString().toLowerCase());
             wellData.setDianBiaoNum(Float.valueOf(zengZongDianNeng));//正向有功总电能
+            System.out.println("电表读数：" + wellData.getDianBiaoNum());
 
             wellData.setNenghaoShang((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_SHANG));
             wellData.setNenghaoXia((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_XIA));
             wellData.setRiHaoDian((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_RI));
             wellData.setTime(new Date());
+            
+            System.out.println("返回功图对象");
 
             return wellData;
         }
