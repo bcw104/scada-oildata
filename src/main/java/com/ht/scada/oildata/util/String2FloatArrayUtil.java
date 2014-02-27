@@ -8,6 +8,8 @@ public class String2FloatArrayUtil {
 	 * @author 赵磊
 	 */
 	public static float[] string2FloatArrayUtil(String value, String token) {
+		if(value == null)
+			return null;
 		String[] str = value.split(token);
 		float[] result = new float[str.length];
 		int i = 0;
