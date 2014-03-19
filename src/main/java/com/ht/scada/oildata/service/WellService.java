@@ -1,18 +1,18 @@
 package com.ht.scada.oildata.service;
 
-import java.util.Date;
-import java.util.List;
-
 import com.ht.scada.oildata.entity.ChouYouGanShouLi;
 import com.ht.scada.oildata.entity.WellDGTData;
 import com.ht.scada.oildata.entity.WellData;
+
+import java.util.Date;
+import java.util.List;
 
 public interface WellService {
 
 	/**
 	 * 获取时间段内数据
 	 * @param wellNum
-	 * @param datetime 日期时间，精确到小时
+	 * @param startTime,endTime  日期时间，精确到小时
 	 * @return
 	 * @throws Exception
 	 * @author 赵磊
@@ -22,7 +22,7 @@ public interface WellService {
 	/**
 	 * 通过井号和时间获得历史的油井示功图及相关信息
 	 * @param wellNum
-	 * @param datetime 日期时间，精确到小时
+	 * @param time 日期时间，精确到小时
 	 * @return
 	 * @throws Exception
 	 * @author 赵磊
