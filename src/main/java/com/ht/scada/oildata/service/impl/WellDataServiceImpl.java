@@ -1,9 +1,7 @@
 package com.ht.scada.oildata.service.impl;
 
 import com.ht.scada.common.tag.service.EndTagExtInfoService;
-import com.ht.scada.common.tag.util.EndTagExtNameEnum;
-import com.ht.scada.common.tag.util.VarGroupEnum;
-import com.ht.scada.common.tag.util.VarSubTypeEnum;
+import com.ht.scada.common.tag.util.*;
 import com.ht.scada.data.kv.VarGroupData;
 import com.ht.scada.data.service.HistoryDataService;
 import com.ht.scada.data.service.RealtimeDataService;
@@ -61,9 +59,17 @@ public class WellDataServiceImpl implements WellService {
                 wellData.setRunModel("变速");
             }
             //3)	油井冲次值
-            wellData.setChongCi(Float.valueOf(map.get(VarSubTypeEnum.CHONG_CI.toString().toLowerCase())));
+            String chongCiStr = map.get(VarSubTypeEnum.CHONG_CI.toString().toLowerCase());
+            CommonUtils.format(chongCiStr, 2);
+            float chongCi = Float.valueOf(chongCiStr);
+            wellData.setChongCi(chongCi);
             //4)	上冲程频率【变速】 5)	下冲程频率【变速】  合为一个频率
-            wellData.setExportFrequency(Float.valueOf(realtimeDataService.getEndTagVarInfo(wellNum, VarSubTypeEnum.BIAN_PIN_QI_SHU_CHU_PIN_LV.toString().toLowerCase())));
+            String exportFrequency = realtimeDataService.getEndTagVarInfo(wellNum, VarSubTypeEnum.BIAN_PIN_QI_SHU_CHU_PIN_LV.toString().toLowerCase());
+            if (exportFrequency != null){
+                wellData.setExportFrequency(Float.valueOf(exportFrequency));
+            }else {
+                wellData.setExportFrequency(0.0f);
+            }
             //6)	上行冲次值【变速】
             wellData.setShangChongChengTime(Float.valueOf(shangxingchongci));
             //7)	下行冲次值【变速】
@@ -81,7 +87,22 @@ public class WellDataServiceImpl implements WellService {
             //14)	下冲程能耗值   有
             wellData.setNenghaoXia(0);
             //15)	功图诊断（异常【突出】）
-            wellData.setFalutDiagnoseInfo("功图诊断信息");
+            String falutDiagnoseInfo = realtimeDataService.getEndTagVarInfo(wellNum, RedisKeysEnum.FALUT_DIAGNOSE_INFO.toString());
+            wellData.setFalutDiagnoseInfo(falutDiagnoseInfo);
+            // 16） 产液量
+            String oliProductStr = realtimeDataService.getEndTagVarInfo(wellNum, RedisKeysEnum.RI_YUGU_CYL.toString());
+            float oliPro = 0.0f;
+            if(oliProductStr != null){
+                oliPro = Float.valueOf(oliProductStr);
+            }
+            wellData.setChanYeLiang(oliPro);
+            // 17） 功图时间
+            String dateTime = realtimeDataService.getEndTagVarInfo(wellNum, RedisKeysEnum.GT_DATETIME.toString());
+            if (dateTime!=null){
+                wellData.setTime(CommonUtils.string2Date(dateTime));
+            }else {
+                wellData.setTime(new Date());
+            }
 
             //if (wellData.getChongCi() < 0) {
             //    System.out.print("冲次为0");
@@ -116,7 +137,7 @@ public class WellDataServiceImpl implements WellService {
             //wellData.setNenghaoShang((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_SHANG));
             //wellData.setNenghaoXia((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_XIA));
             //wellData.setRiHaoDian((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_RI));
-            wellData.setTime(new Date());
+            //wellData.setTime(new Date());
             
             System.out.println("返回示功图对象");
 
