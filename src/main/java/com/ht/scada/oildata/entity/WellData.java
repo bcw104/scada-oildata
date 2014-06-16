@@ -8,7 +8,8 @@ import java.util.Date;
  * 油井数据，包括示功图数据、最大载荷、最小载荷、冲程时间、冲次、冲程、光杆功率等
  * 
  * @author 赵磊
- * 
+ * @author 陈志强
+ *
  */
 public class WellData {
 
@@ -16,7 +17,15 @@ public class WellData {
 	 * 井号，可以是中文或英文，如草13-113、C13-P32
 	 */
 	private String code;
-	/**
+    /**
+     * 运行模式
+     */
+    private String runModel;
+    /**
+     * 输出频率
+     */
+    private float exportFrequency;
+    /**
 	 * 载荷，示功图纵坐标
 	 */
 	private float[] zaihe;
@@ -74,10 +83,10 @@ public class WellData {
 	 * 日耗电量
 	 */
 	private float riHaoDian;
-	/**
-	 * 电表读数
-	 */
-	private float dianBiaoNum;
+	///**
+	// * 电表读数
+	// */
+	//private float dianBiaoNum;
 	/**
 	 * 上冲程能耗
 	 */
@@ -212,14 +221,6 @@ public class WellData {
 		this.riHaoDian = riHaoDian;
 	}
 
-	public float getDianBiaoNum() {
-		return dianBiaoNum;
-	}
-
-	public void setDianBiaoNum(float dianBiaoNum) {
-		this.dianBiaoNum = dianBiaoNum;
-	}
-
 	public Date getTime() {
 		return time;
 	}
@@ -243,7 +244,20 @@ public class WellData {
 	public void setNenghaoShang(float nenghaoShang) {
 		this.nenghaoShang = nenghaoShang;
 	}
-	
-	
-	
+
+    public String getRunModel() {
+        return runModel;
+    }
+
+    public void setRunModel(String runModel) {
+        this.runModel = runModel;
+    }
+
+    public float getExportFrequency() {
+        return exportFrequency;
+    }
+
+    public void setExportFrequency(float exportFrequency) {
+        this.exportFrequency = exportFrequency;
+    }
 }
