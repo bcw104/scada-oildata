@@ -53,11 +53,18 @@ public class WellDataServiceImpl implements WellService {
             //2)	运行模式：变速  根据上下行冲次是否相等判断
             String shangxingchongci = realtimeDataService.getEndTagVarInfo(wellNum, VarSubTypeEnum.SHANG_XING_CHONG_CI.toString().toLowerCase());
             String xiaxingchongci = realtimeDataService.getEndTagVarInfo(wellNum, VarSubTypeEnum.XIA_XING_CHONG_CI.toString().toLowerCase());
-            if (shangxingchongci.equals(xiaxingchongci)) {
-                wellData.setRunModel("匀速");
-            }else {
+            if (xiaxingchongci != null && shangxingchongci != null) {
+                if (shangxingchongci.equals(xiaxingchongci)) {
+                    wellData.setRunModel("匀速");
+                }else {
+                    wellData.setRunModel("变速");
+                }
+            } else if (xiaxingchongci != null || shangxingchongci != null) {
                 wellData.setRunModel("变速");
+            } else {
+                wellData.setRunModel("匀速");
             }
+
             //3)	油井冲次值
             String chongCiStr = map.get(VarSubTypeEnum.CHONG_CI.toString().toLowerCase());
             CommonUtils.format(chongCiStr, 2);
