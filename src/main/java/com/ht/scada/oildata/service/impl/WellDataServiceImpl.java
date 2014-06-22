@@ -67,9 +67,13 @@ public class WellDataServiceImpl implements WellService {
 
             //3)	油井冲次值
             String chongCiStr = map.get(VarSubTypeEnum.CHONG_CI.toString().toLowerCase());
-            CommonUtils.format(chongCiStr, 2);
-            float chongCi = Float.valueOf(chongCiStr);
-            wellData.setChongCi(chongCi);
+            if (chongCiStr != null) {
+                CommonUtils.format(chongCiStr, 2);
+                float chongCi = Float.valueOf(chongCiStr);
+                wellData.setChongCi(chongCi);
+            }else {
+                wellData.setChongCi(0.0f);
+            }
             //4)	上冲程频率【变速】 5)	下冲程频率【变速】  合为一个频率
             String exportFrequency = realtimeDataService.getEndTagVarInfo(wellNum, VarSubTypeEnum.BIAN_PIN_QI_SHU_CHU_PIN_LV.toString().toLowerCase());
             if (exportFrequency != null){
@@ -145,8 +149,6 @@ public class WellDataServiceImpl implements WellService {
             //wellData.setNenghaoXia((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_XIA));
             //wellData.setRiHaoDian((Float) calcMap.get(GTReturnKeyEnum.NENG_HAO_RI));
             //wellData.setTime(new Date());
-            
-            System.out.println("返回示功图对象");
 
             return wellData;
         }
