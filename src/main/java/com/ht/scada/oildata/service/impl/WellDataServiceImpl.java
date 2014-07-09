@@ -67,30 +67,24 @@ public class WellDataServiceImpl implements WellService {
 
             //3)	油井冲次值
             String chongCiStr = map.get(VarSubTypeEnum.CHONG_CI.toString().toLowerCase());
-            if (chongCiStr != null) {
-                CommonUtils.format(chongCiStr, 2);
-                float chongCi = Float.valueOf(chongCiStr);
-                wellData.setChongCi(chongCi);
-            }else {
-                wellData.setChongCi(0.0f);
-            }
+            wellData.setChongCi(CommonUtils.string2Float(chongCiStr,2));
             //4)	上冲程频率【变速】 5)	下冲程频率【变速】  合为一个频率
             String exportFrequency = realtimeDataService.getEndTagVarInfo(wellNum, VarSubTypeEnum.BIAN_PIN_QI_SHU_CHU_PIN_LV.toString().toLowerCase());
-            if (exportFrequency != null){
-                wellData.setExportFrequency(Float.valueOf(exportFrequency));
-            }else {
-                wellData.setExportFrequency(0.0f);
-            }
+                wellData.setExportFrequency(CommonUtils.string2Float(exportFrequency,2));
             //6)	上行冲次值【变速】
-            wellData.setShangChongChengTime(Float.valueOf(shangxingchongci));
+            wellData.setShangChongChengTime(CommonUtils.string2Float(shangxingchongci,2));
+
             //7)	下行冲次值【变速】
-            wellData.setXiaChongChengTime(Float.valueOf(xiaxingchongci));
+            wellData.setXiaChongChengTime(CommonUtils.string2Float(xiaxingchongci,2));
             //8)	油井冲程值
-            wellData.setChongCheng(Float.valueOf(map.get(VarSubTypeEnum.CHONG_CHENG.toString().toLowerCase())));
+            String chongChengStr = map.get(VarSubTypeEnum.CHONG_CHENG.toString().toLowerCase());
+            wellData.setChongCheng(CommonUtils.string2Float(chongChengStr,2));
             //9)	示功图最大载荷值
-            wellData.setMaxZaihe(Float.valueOf(map.get(VarSubTypeEnum.ZUI_DA_ZAI_HE.toString().toLowerCase())));
+            String maxZaiheStr = map.get(VarSubTypeEnum.ZUI_DA_ZAI_HE.toString().toLowerCase());
+            wellData.setMaxZaihe(CommonUtils.string2Float(maxZaiheStr,2));
             //10)	示功图最小载荷值
-            wellData.setMinZaihe(Float.valueOf(map.get(VarSubTypeEnum.ZUI_XIAO_ZAI_HE.toString().toLowerCase())));
+            String minZaiheStr = map.get(VarSubTypeEnum.ZUI_XIAO_ZAI_HE.toString().toLowerCase());
+            wellData.setMinZaihe(CommonUtils.string2Float(minZaiheStr,2));
             //11)	上载线【隐藏】
             //12)	下载线【隐藏】
             //13)	上冲程能耗值  有
@@ -102,11 +96,7 @@ public class WellDataServiceImpl implements WellService {
             wellData.setFalutDiagnoseInfo(falutDiagnoseInfo);
             // 16） 产液量
             String oliProductStr = realtimeDataService.getEndTagVarInfo(wellNum, RedisKeysEnum.RI_YUGU_CYL.toString());
-            float oliPro = 0.0f;
-            if(oliProductStr != null){
-                oliPro = Float.valueOf(oliProductStr);
-            }
-            wellData.setChanYeLiang(oliPro);
+            wellData.setChanYeLiang(CommonUtils.string2Float(oliProductStr,2));
             // 17） 功图时间
             String dateTime = realtimeDataService.getEndTagVarInfo(wellNum, RedisKeysEnum.GT_DATETIME.toString());
             if (dateTime!=null){
@@ -129,15 +119,44 @@ public class WellDataServiceImpl implements WellService {
 
 
             //float[] power = String2FloatArrayUtil.string2FloatArrayUtil(realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.GONG_LV_ARRAY.toString().toLowerCase()), ",");
-            //GTDataComputerProcess gtData = new GTDataComputerProcess();
-            //float bengJing = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.BENG_JING.toString()).getValue());
-            //float oilDensity = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.MI_DU.toString()).getValue());
-            //float hanShuiLiang = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.HAN_SHUI_LV.toString()).getValue());
+            GTDataComputerProcess gtData = new GTDataComputerProcess();
+            String bengJingStr = endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.BENG_JING.toString()).getValue();
+            String miDuStr = endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.MI_DU.toString()).getValue();
+            String hanShuiLvStr = endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.HAN_SHUI_LV.toString()).getValue();
+            float bengJing, oilDensity,hanShuiLiang;
+            if (bengJingStr != null) {
+                bengJing = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.BENG_JING.toString()).getValue());
+            }else {
+                bengJing = 0f;
+            }
+            if (miDuStr != null) {
+                oilDensity = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.MI_DU.toString()).getValue());
+            }else {
+                oilDensity = 0f;
+            }
+            if (hanShuiLvStr != null) {
+                hanShuiLiang = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.HAN_SHUI_LV.toString()).getValue());
+            }else {
+                hanShuiLiang = 0f;
+            }
 
             //Map<GTReturnKeyEnum, Object> calcMap = gtData.calcSGTData(weiyi, zaihe, power, wellData.getChongCi(), bengJing, oilDensity, hanShuiLiang);
+            if (bengJing == 0){
+                bengJing = 70f;
+            }
+            if (oilDensity == 0){
+                oilDensity = 1f;
+            }
+            if (hanShuiLiang == 0){
+                hanShuiLiang = 0.9f;
+            }
+            Map<GTReturnKeyEnum, Object> calcMap;
+            if (weiyi != null && zaihe != null) {
+               calcMap = gtData.calcSGTData(weiyi, zaihe, null, wellData.getChongCi(), bengJing, oilDensity, hanShuiLiang);
+               wellData.setChanYeLiang((Float) calcMap.get(GTReturnKeyEnum.LIQUID_PRODUCT)*24);
+            }
             //System.out.println("功图计算完毕！");
             //wellData.setFalutDiagnoseInfo((String) calcMap.get(GTReturnKeyEnum.FAULT_DIAGNOSE_INFO));
-            //wellData.setChanYeLiang((Float) calcMap.get(GTReturnKeyEnum.LIQUID_PRODUCT)*24);
             //wellData.setPingHengDu((Float) calcMap.get(GTReturnKeyEnum.PING_HENG_DU));
             //wellData.setBengXiao((Float) calcMap.get(GTReturnKeyEnum.BENG_XIAO));
             //
