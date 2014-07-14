@@ -1,13 +1,13 @@
 package com.ht.scada.oildata.calc;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class GTDataComputerProcess implements GTDataComputer{
 	private static final Logger log = LoggerFactory
