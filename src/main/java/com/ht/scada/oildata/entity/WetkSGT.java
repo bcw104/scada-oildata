@@ -1,7 +1,5 @@
 package com.ht.scada.oildata.entity;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -13,7 +11,8 @@ import java.util.Date;
  * Time: 10:14
  */
 @Table(name="SCY_SGT_GTCJ")
-public class WetkSGT  extends AbstractPersistable<Integer> {
+public class WetkSGT{
+    private String ID;
     //JH	 井号
     private String JH;
     //CJSJ  采集时间
@@ -50,6 +49,14 @@ public class WetkSGT  extends AbstractPersistable<Integer> {
     private float YGGL;
     //WGGL	无功功率
     private float WGGL;
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 
     public String getJH() {
         return JH;
