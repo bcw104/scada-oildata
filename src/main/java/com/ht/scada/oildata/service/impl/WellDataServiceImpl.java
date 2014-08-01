@@ -116,45 +116,51 @@ public class WellDataServiceImpl implements WellService {
 //            wellData.setShangChongChengTime(wellData.getChongChengTime()/2);
 //            wellData.setXiaChongChengTime(wellData.getChongChengTime()/2);
 
-
-
             //float[] power = String2FloatArrayUtil.string2FloatArrayUtil(realtimeDataService.getEndTagVarYcArray(wellNum, VarSubTypeEnum.GONG_LV_ARRAY.toString().toLowerCase()), ",");
-            GTDataComputerProcess gtData = new GTDataComputerProcess();
-            String bengJingStr = endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.BENG_JING.toString()).getValue();
-            String miDuStr = endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.MI_DU.toString()).getValue();
-            String hanShuiLvStr = endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.HAN_SHUI_LV.toString()).getValue();
-            float bengJing, oilDensity,hanShuiLiang;
-            if (bengJingStr != null) {
-                bengJing = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.BENG_JING.toString()).getValue());
-            }else {
-                bengJing = 0f;
-            }
-            if (miDuStr != null) {
-                oilDensity = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.MI_DU.toString()).getValue());
-            }else {
-                oilDensity = 0f;
-            }
-            if (hanShuiLvStr != null) {
-                hanShuiLiang = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.HAN_SHUI_LV.toString()).getValue());
-            }else {
-                hanShuiLiang = 0f;
-            }
-
-            //Map<GTReturnKeyEnum, Object> calcMap = gtData.calcSGTData(weiyi, zaihe, power, wellData.getChongCi(), bengJing, oilDensity, hanShuiLiang);
-            if (bengJing == 0){
-                bengJing = 70f;
-            }
-            if (oilDensity == 0){
-                oilDensity = 1f;
-            }
-            if (hanShuiLiang == 0){
-                hanShuiLiang = 0.9f;
-            }
-            Map<GTReturnKeyEnum, Object> calcMap;
-            if (weiyi != null && zaihe != null) {
-               calcMap = gtData.calcSGTData(weiyi, zaihe, null, wellData.getChongCi(), bengJing, oilDensity, hanShuiLiang);
-               wellData.setChanYeLiang((Float) calcMap.get(GTReturnKeyEnum.LIQUID_PRODUCT)*24);
-            }
+            //GTDataComputerProcess gtData = new GTDataComputerProcess();
+            //String bengJingStr = endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.BENG_JING.toString()).getValue();
+            //String miDuStr = endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.MI_DU.toString()).getValue();
+            //String hanShuiLvStr = endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.HAN_SHUI_LV.toString()).getValue();
+            //float bengJing, oilDensity,hanShuiLiang;
+            //if (bengJingStr != null) {
+            //    bengJing = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.BENG_JING.toString()).getValue());
+            //}else {
+            //    bengJing = 0f;
+            //}
+            //if (miDuStr != null) {
+            //    oilDensity = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.MI_DU.toString()).getValue());
+            //}else {
+            //    oilDensity = 0f;
+            //}
+            //if (hanShuiLvStr != null) {
+            //    hanShuiLiang = Float.valueOf(endTagExtInfoService.getByCodeAndKeyName(wellNum, EndTagExtNameEnum.HAN_SHUI_LV.toString()).getValue());
+            //}else {
+            //    hanShuiLiang = 0f;
+            //}
+            //
+            ////Map<GTReturnKeyEnum, Object> calcMap = gtData.calcSGTData(weiyi, zaihe, power, wellData.getChongCi(), bengJing, oilDensity, hanShuiLiang);
+            //if (bengJing == 0){
+            //    bengJing = 70f;
+            //}
+            //if (oilDensity == 0){
+            //    oilDensity = 1f;
+            //}
+            //if (hanShuiLiang == 0){
+            //    hanShuiLiang = 0.9f;
+            //}
+            //Map<GTReturnKeyEnum, Object> calcMap;
+            //if (weiyi != null && zaihe != null && weiyi.length > 0 && zaihe.length > 0) {
+            //    boolean flag = false;
+            //    for (int i = 0; i < weiyi.length; i++) {
+            //        if (weiyi[i] != 0) {
+            //            flag = true;
+            //        }
+            //    }
+            //    if (flag) {
+            //        calcMap = gtData.calcSGTData(weiyi, zaihe, null, wellData.getChongCi(), bengJing, oilDensity, hanShuiLiang);
+            //        wellData.setChanYeLiang((Float) calcMap.get(GTReturnKeyEnum.LIQUID_PRODUCT) * 24);
+            //    }
+            //}
             //System.out.println("功图计算完毕！");
             //wellData.setFalutDiagnoseInfo((String) calcMap.get(GTReturnKeyEnum.FAULT_DIAGNOSE_INFO));
             //wellData.setPingHengDu((Float) calcMap.get(GTReturnKeyEnum.PING_HENG_DU));

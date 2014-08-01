@@ -1,7 +1,5 @@
 package com.ht.scada.oildata.entity;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -13,7 +11,8 @@ import java.util.Date;
  * Time: 10:14
  */
 @Table(name="SCY_SGT_GTCJ")
-public class WetkSGT  extends AbstractPersistable<Integer> {
+public class WetkSGT{
+    private String ID;
     //JH	 井号
     private String JH;
     //CJSJ  采集时间
@@ -27,17 +26,17 @@ public class WetkSGT  extends AbstractPersistable<Integer> {
     //XXCC1	下行冲次
     private float XXCC1;
     //WY	位移
-    private float[] WY;
+    private String WY;
     //DL	电流
-    private float[] DL;
+    private String DL;
     //GL	有功功率采集数据
-    private float[] GL;
+    private String GL;
     //ZH	 	载荷
-    private float[] ZH;
+    private String ZH;
     //BPQSCGL		变频器输出功率
-    private float[] BPQSCGL;
+    private String BPQSCGL;
     //ZJ	转矩
-    private float[] ZJ;
+    private String ZJ;
     //ZDZH	最大载荷
     private float ZDZH;
     //ZXZH	最小载荷
@@ -50,6 +49,14 @@ public class WetkSGT  extends AbstractPersistable<Integer> {
     private float YGGL;
     //WGGL	无功功率
     private float WGGL;
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 
     public String getJH() {
         return JH;
@@ -99,51 +106,51 @@ public class WetkSGT  extends AbstractPersistable<Integer> {
         this.XXCC1 = XXCC1;
     }
 
-    public float[] getWY() {
+    public String getWY() {
         return WY;
     }
 
-    public void setWY(float[] WY) {
+    public void setWY(String WY) {
         this.WY = WY;
     }
 
-    public float[] getDL() {
+    public String getDL() {
         return DL;
     }
 
-    public void setDL(float[] DL) {
+    public void setDL(String DL) {
         this.DL = DL;
     }
 
-    public float[] getGL() {
+    public String getGL() {
         return GL;
     }
 
-    public void setGL(float[] GL) {
+    public void setGL(String GL) {
         this.GL = GL;
     }
 
-    public float[] getZH() {
+    public String getZH() {
         return ZH;
     }
 
-    public void setZH(float[] ZH) {
+    public void setZH(String ZH) {
         this.ZH = ZH;
     }
 
-    public float[] getBPQSCGL() {
+    public String getBPQSCGL() {
         return BPQSCGL;
     }
 
-    public void setBPQSCGL(float[] BPQSCGL) {
+    public void setBPQSCGL(String BPQSCGL) {
         this.BPQSCGL = BPQSCGL;
     }
 
-    public float[] getZJ() {
+    public String getZJ() {
         return ZJ;
     }
 
-    public void setZJ(float[] ZJ) {
+    public void setZJ(String ZJ) {
         this.ZJ = ZJ;
     }
 
