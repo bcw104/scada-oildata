@@ -65,9 +65,9 @@ public class WetkSGTServiceImpl implements WetkSGTService {
     }
 
     @Override
-    public void addOneGTFXRecord(String gtId, String code, Date cjDate) {
-        String sql = "Insert into QYSCZH.SCY_SGT_GTFX (ID, JH, CJSJ, GTID) " //
-        + "values (:ID,:JH,:CJSJ,:GTID) ";//
+    public void addOneGTFXRecord(String gtId,String code,Date cjDate,float CC,float CC1,float ZDZH,float ZXZH) {
+        String sql = "Insert into QYSCZH.SCY_SGT_GTFX (ID, JH, CJSJ, GTID,CC,CC1,ZDZH,ZXZH) " //
+        + "values (:ID,:JH,:CJSJ,:GTID,:CC,:CC1,:ZDZH,:ZXZH) ";//
 
         try (Connection con = sql2o.open()) {  //
             con.createQuery(sql)  //
@@ -75,9 +75,12 @@ public class WetkSGTServiceImpl implements WetkSGTService {
                     .addParameter("JH",code)
                     .addParameter("CJSJ",cjDate)
                     .addParameter("GTID",gtId)
+                    .addParameter("CC", CC)
+                    .addParameter("CC1",CC1)
+                    .addParameter("ZDZH",ZDZH)
+                    .addParameter("ZXZH",ZXZH)
                     .executeUpdate();//
         }//
-
     }
 
     @Override
