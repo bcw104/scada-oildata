@@ -2,6 +2,7 @@ package com.ht.scada.oildata.service.impl;
 
 import com.ht.scada.common.tag.util.CommonUtils;
 import com.ht.scada.oildata.entity.WetkSGT;
+import com.ht.scada.oildata.model.GTSC;
 import com.ht.scada.oildata.service.WetkSGTService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,9 @@ public class WetkSGTServiceImpl implements WetkSGTService {
         this.sql2o = sql2o;
     }
 
+
+
+
     @Override
     public void addOneRecord(WetkSGT wetkSGT) {
         String sql = "Insert into QYSCZH.SCY_SGT_GTCJ (ID,JH,CJSJ,CC,CC1,SXCC1,XXCC1,WY,DL,GL," //
@@ -61,12 +65,15 @@ public class WetkSGTServiceImpl implements WetkSGTService {
                     .addParameter("YGGL", wetkSGT.getYGGL())//
                     .addParameter("WGGL", wetkSGT.getWGGL())//
                     .executeUpdate();//
+        }catch (Exception e) {
+            System.out.println("e:" + e.getMessage());//
         }//
+
     }
 
     @Override
     public void addOneGTFXRecord(String gtId,String code,Date cjDate,float CC,float CC1,float ZDZH,float ZXZH) {
-        String sql = "Insert into QYSCZH.SCY_SGT_GTFX (ID, JH, CJSJ, GTID,CC,CC1,ZDZH,ZXZH) " //
+        String sql = "INSERT INTO QYSCZH.SCY_SGT_GTFX (ID, JH, CJSJ, GTID, CC, CC1, ZDZH, ZXZH) " //
         + "values (:ID,:JH,:CJSJ,:GTID,:CC,:CC1,:ZDZH,:ZXZH) ";//
 
         try (Connection con = sql2o.open()) {  //
@@ -74,13 +81,27 @@ public class WetkSGTServiceImpl implements WetkSGTService {
                     .addParameter("ID", CommonUtils.getCode())
                     .addParameter("JH",code)
                     .addParameter("CJSJ",cjDate)
-                    .addParameter("GTID",gtId)
+                    .addParameter("GTID", gtId)
                     .addParameter("CC", CC)
                     .addParameter("CC1",CC1)
                     .addParameter("ZDZH",ZDZH)
-                    .addParameter("ZXZH",ZXZH)
+                    .addParameter("ZXZH", ZXZH)
                     .executeUpdate();//
-        }//
+        } catch (Exception e) {
+            System.out.println("e:" + e.getMessage());//
+        }
+
+    }
+
+    @Override
+    public GTSC findOneGTFXRecordByCode(String code) {
+        // RCYL1 产液量、RCYL 产油量
+        String sql = "SELECT RCYL1,RCYL FROM QYSCZH.SCY_SGT_GTFX WHERE SCJSBZ = 1 AND JH =:CODE ORDER BY CJSJ DESC ";//
+        try (Connection con = sql2o.open()) {  //
+            return con.createQuery(sql)  //
+                    .addParameter("CODE", code)
+                    .executeAndFetchFirst(GTSC.class);
+        }
     }
 
     @Override
