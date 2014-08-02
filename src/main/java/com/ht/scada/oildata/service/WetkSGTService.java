@@ -26,7 +26,7 @@ public interface WetkSGTService {
      * @param code 井号
      * @param cjDate 采集时间
      */
-    void addOneGTFXRecord(String gtId,String code,Date cjDate);
+    void addOneGTFXRecord(String gtId,String code,Date cjDate,float cc,float cc1,float zdzh,float zxzh);
 
     /**
      * 查询所有记录
