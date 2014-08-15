@@ -9,7 +9,11 @@ package com.ht.scada.oildata.model;
  */
 public class GTSC {
     private float RCYL1;//  产液量
-    private float RCYL;//  产油量
+    private float RCYL; //  产油量
+    private String JH;  //  井号
+    private String CJSJ;  //  采集时间
+    private String WY;   //  泵功图（位移）
+    private String BGT;  //  泵功图（载荷）
 
     public float getRCYL1() {
         return RCYL1;
@@ -25,5 +29,37 @@ public class GTSC {
 
     public void setRCYL(float RCYL) {
         this.RCYL = RCYL;
+    }
+
+    public String getWY() {
+        return WY;
+    }
+
+    public void setWY(String WY) {
+        this.WY = WY;
+    }
+
+    public String getBGT() {
+        return BGT;
+    }
+
+    public void setBGT(String BGT) {
+        this.BGT = BGT;
+    }
+
+    public String getJH() {
+        return JH;
+    }
+
+    public void setJH(String JH) {
+        this.JH = JH;
+    }
+
+    public String getCJSJ() {
+        return CJSJ;
+    }
+
+    public void setCJSJ(String CJSJ) {
+        this.CJSJ = CJSJ;
     }
 }

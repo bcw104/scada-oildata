@@ -40,4 +40,10 @@ public interface WetkSGTService {
      * @return
      */
     List<WetkSGT> getAllRecords();
+
+    /**
+     * 根据功图采集时间和井号查询功图计产记录
+     * @return
+     */
+    GTSC findGTSCRecordByJHAndCJSJ(String JH, String CJSJ);
 }

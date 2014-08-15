@@ -96,7 +96,7 @@ public class WetkSGTServiceImpl implements WetkSGTService {
     @Override
     public GTSC findOneGTFXRecordByCode(String code) {
         // RCYL1 产液量、RCYL 产油量
-        String sql = "SELECT RCYL1,RCYL FROM QYSCZH.SCY_SGT_GTFX WHERE SCJSBZ = 1 AND JH =:CODE ORDER BY CJSJ DESC ";//
+        String sql = "select q.RCYL1,q.RCYL,s.JH,q.CJSJ,s.WY,q.BGT FROM QYSCZH.SCY_SGT_GTCJ s inner join QYSCZH.SCY_SGT_GTFX q on s.JH=:CODE AND q.SCJSBZ = 1 AND q.JH=s.JH ORDER BY q.CJSJ DESC ";//
         try (Connection con = sql2o.open()) {  //
             return con.createQuery(sql)  //
                     .addParameter("CODE", code)
@@ -110,6 +110,17 @@ public class WetkSGTServiceImpl implements WetkSGTService {
             return con.createQuery("SELECT * from QYSCZH.SCY_SGT_GTCJ")//
                     .setAutoDeriveColumnNames(true)//
                     .executeAndFetch(WetkSGT.class);
+        }
+    }
+
+    @Override
+    public GTSC findGTSCRecordByJHAndCJSJ(String JH, String CJSJ) {
+        String sql = "SELECT RCYL1,RCYL,JH,CJSJ FROM QYSCZH.SCY_SGT_GTFX WHERE JH=:CODE AND CJSJ=TO_DATE(:CJSJ,'YYYY-MM-DD HH24:MI:SS')";//
+        try (Connection con = sql2o.open()) {  //
+            return con.createQuery(sql)  //
+                    .addParameter("CODE", JH)
+                    .addParameter("CJSJ", CJSJ)
+                    .executeAndFetchFirst(GTSC.class);
         }
     }
 }
