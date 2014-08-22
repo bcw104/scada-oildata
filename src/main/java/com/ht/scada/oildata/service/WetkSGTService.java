@@ -1,5 +1,6 @@
 package com.ht.scada.oildata.service;
 
+import com.ht.scada.data.kv.VarGroupData;
 import com.ht.scada.oildata.entity.WetkSGT;
 import com.ht.scada.oildata.model.GTSC;
 import org.sql2o.Sql2o;
@@ -46,4 +47,30 @@ public interface WetkSGTService {
      * @return
      */
     GTSC findGTSCRecordByJHAndCJSJ(String JH, String CJSJ);
+
+    /**
+     * 获取时间段内所有功图数据
+     * @param JH 井号
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return
+     */
+    List<GTSC> findGTSCRecordByJHAndTime(String JH, Date startTime, Date endTime);
+
+    /**
+     * 根据井号和采集时间更新功图分析表内的计算标记，0：有效功图，1：无效功图
+     * @param JH
+     * @param CJSJ
+     */
+    void updateGtfxByJhAndCJSJ(String JH, Date CJSJ);
+
+    /**
+     * 根据曲线类型、时间和井号获取数组数据
+     * @param code
+     * @param startDate
+     * @param endDate
+     * @param arrayType
+     * @return
+     */
+    List<VarGroupData> findArrayDataByCodeAndDateTimeAndType(String code, Date startDate, Date endDate, String arrayType);
 }
