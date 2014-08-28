@@ -197,13 +197,17 @@ public class GTDataComputerProcess implements GTDataComputer{
 		// 求有效冲程，右下点C
 		List<Integer> yxIndex = new ArrayList<Integer>();
 		int yxFlag = 0;
-		if (pointArray[maxWeiyiFlag].getX() - 0.1 < 0) {// 有效冲程比较小
+		
+		log.debug("最大位移：" + weiyi[pointArray[maxWeiyiFlag].getIndex()]);
+		
+		if (pointArray[maxWeiyiFlag].getX() - 0.2 < 0) {// 有效冲程比较小
 			yxFlag = maxWeiyiFlag;
 		} else {
 			for (int i = 0; i < xiaIndex.size(); i++) {
 				if (pointArray[xiaIndex.get(i)].getX() > (pointArray[maxWeiyiFlag]
 						.getX() - 0.1)) {
 					yxIndex.add(xiaIndex.get(i));
+					log.debug("位移：" + weiyi[pointArray[xiaIndex.get(i)].getIndex()]);
 				}
 			}
 			
@@ -220,8 +224,8 @@ public class GTDataComputerProcess implements GTDataComputer{
 			
 		}
 		
-//		log.debug("右下点C  X:" + weiyi[pointArray[yxFlag].getIndex()] + " Y:"
-//				+ zaihe[pointArray[yxFlag].getIndex()]);
+		log.debug("右下点C  X:" + weiyi[pointArray[yxFlag].getIndex()] + " Y:"
+				+ zaihe[pointArray[yxFlag].getIndex()]);
 
 		// 求左下
 		// List<Integer> zxIndex = new ArrayList<Integer>();
@@ -491,6 +495,7 @@ public class GTDataComputerProcess implements GTDataComputer{
 		resultMap.put(GTReturnKeyEnum.LIQUID_PRODUCT, newLiquidProduct); // 添加产液量
 		log.debug("理论产液量：" + newLiquidProduct);
 		resultMap.put(GTReturnKeyEnum.AREA_PRODUCT, areaProduct);	//添加面积产液量
+		resultMap.put(GTReturnKeyEnum.AREA_YXCC, areaCC);	//添加面积有效冲程
 		
 		resultMap.put(GTReturnKeyEnum.OIL_PRODUCT, product);	//产油量（吨）
 

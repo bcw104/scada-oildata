@@ -21,7 +21,7 @@ public class NengHaoCalc {
      * @return
      */
     public static float nengHaoShang(float[] power, int maxFlag, int minFlag, float chongCi) {
-        System.out.println(maxFlag + " " + minFlag);
+//        System.out.println(maxFlag + " " + minFlag);
         if (chongCi <= 0) {
             return 0;
         }
@@ -36,7 +36,7 @@ public class NengHaoCalc {
                 i -= (n);
             }
         }
-        System.out.println("上冲程能耗：" + upPower);
+//        System.out.println("上冲程能耗：" + upPower);
         return upPower;
     }
     
@@ -63,7 +63,7 @@ public class NengHaoCalc {
                 i -= (n);
             }
         }
-        System.out.println("下冲程能耗：" + downPower);
+//        System.out.println("下冲程能耗：" + downPower);
         return downPower;
     }
     

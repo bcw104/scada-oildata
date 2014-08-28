@@ -50,7 +50,7 @@ public class PhdCalc {
                 i -= n;
             }
         }
-        phd = upPower/downPower;
+        phd = Math.abs(upPower)/Math.abs(downPower);
         if(phd>1) {
             phd = 1/phd;
         }
