@@ -16,6 +16,8 @@ import javax.inject.Inject;
 import java.util.*;
 
 /**
+ * 需要写sql语句实时
+ *
  * @author 陈志强
  */
 @Transactional
@@ -95,11 +97,19 @@ public class WetkSGTServiceImpl implements WetkSGTService {
 
     @Override
     public GTSC findOneGTFXRecordByCode(String code) {
-        // RCYL1 产液量、RCYL 产油量
-        String sql = "select q.RCYL1,q.RCYL,s.JH,q.CJSJ,s.WY,q.BGT FROM QYSCZH.SCY_SGT_GTCJ s inner join QYSCZH.SCY_SGT_GTFX q on s.JH=:CODE AND q.SCJSBZ = 1 AND q.JH=s.JH ORDER BY q.CJSJ DESC ";//
+        //String sql = "select q.RCYL1 rcyl1,q.RCYL rcyl,s.JH jh,q.CJSJ cjsj,s.WY wy,q.BGT bgt FROM QYSCZH.SCY_SGT_GTCJ s inner join QYSCZH.SCY_SGT_GTFX q on s.JH=:CODE AND q.SCJSBZ = 1 AND q.JH=s.JH ORDER BY q.CJSJ DESC ";//
+        String sql ="SELECT" +//
+                "  q.RCYL1 rcyl1, " +//
+                "  q.RCYL  rcyl, " +//
+                "  s.JH    jh, " +//
+                "  q.CJSJ  cjsj, " +//
+                "  s.WY    wy, " +//
+                "  q.BGT   bgt " +//
+                " FROM QYSCZH.SCY_SGT_GTCJ s LEFT JOIN QYSCZH.SCY_SGT_GTFX q ON q.JH = s.JH AND s.cjsj = q.cjsj AND s.id = q.gtid " +
+                " WHERE s.JH = :CODE and q.cjsj is not null ORDER BY q.CJSJ DESC ";
         try (Connection con = sql2o.open()) {  //
-            return con.createQuery(sql)  //
-                    .addParameter("CODE", code).executeAndFetchFirst(GTSC.class);
+            org.sql2o.Query query =  con.createQuery(sql).addParameter("CODE", code);
+            return query.executeAndFetchFirst(GTSC.class);
         }
     }
 
@@ -126,7 +136,7 @@ public class WetkSGTServiceImpl implements WetkSGTService {
         List<GTSC> rtnList = new ArrayList<>();
         String sql = "SELECT GTCJ.JH jh,GTCJ.CJSJ cjsj,GTFX.RCYL rcyl,GTFX.RCYL1 rcyl1,GTCJ.WY wy,GTCJ.ZH zh, " + //
                 "GTCJ.ZDZH zdzh,GTCJ.ZXZH zxzh,GTFX.JSBZ jsbz,GTCJ.CC cc,GTCJ.CC1 cc1 FROM QYSCZH.SCY_SGT_GTFX GTFX " +//
-                "LEFT JOIN QYSCZH.SCY_SGT_GTCJ GTCJ ON GTFX.GTID=GTCJ.ID WHERE GTFX.JH=:JH AND GTCJ.CJSJ>=:startTime AND GTCJ.CJSJ<:endTime ORDER BY cjsj DESC";
+                "LEFT JOIN QYSCZH.SCY_SGT_GTCJ GTCJ ON GTFX.GTID=GTCJ.ID WHERE GTFX.SCJSBZ=1 AND GTFX.JH=:JH AND GTCJ.CJSJ>=:startTime AND GTCJ.CJSJ<:endTime ORDER BY cjsj DESC";
         try (Connection con = sql2o.open()) {  //
             org.sql2o.Query query = con.createQuery(sql).addParameter("JH", JH).addParameter("startTime", startTime).addParameter("endTime", endTime);
             List<Row> dataList = query.executeAndFetchTable().rows();
@@ -161,7 +171,7 @@ public class WetkSGTServiceImpl implements WetkSGTService {
     public void updateGtfxByJhAndCJSJ(String JH, Date CJSJ) {
         Date endDate = new Date(CJSJ.getTime() + 1000);
         //System.out.println("CJSJ:--" + LocalDateTime.fromDateFields(CJSJ).toString("yyyy-MM-dd HH:mm:ss"));
-        String sql = "update qysczh.SCY_SGT_GTFX f set f.jsbz=1 where f.jh=:JH and f.cjsj>=:CJSJ and f.cjsj<:endDate"; // 时间查询时不能直接写=
+        String sql = "update qysczh.SCY_SGT_GTFX f set f.jsbz=1 where f.jh=:JH and f.cjsj>=:CJSJ and f.cjsj<:endDate"; // 时间查询时不能直接写"="
         try (Connection con = sql2o.open()) {  //
             con.createQuery(sql)//
                     .addParameter("JH", JH)//
@@ -234,6 +244,29 @@ public class WetkSGTServiceImpl implements WetkSGTService {
             }
         }
 
+        return rtnList;
+    }
+
+    @Override
+    public List<Map<String,Object>> findCloseWellDataByDate(Date dateTime) {
+        List<Map<String,Object>> rtnList = new ArrayList<>();
+
+        String sql = "select a.JH jh,a.RQ rq,b.DMMC dmmc,a.BZ bz FROM YS_DBA01@YDK a left join FLA15@YDK b on a.bzdm=b.dm  where a.RQ=:dateTime " + //
+                " and a.jh in (select code from t_end_tag where type='YOU_JING') and a.BZDM is not null ";
+
+        try (Connection con = sql2o.open()) {
+            org.sql2o.Query query = con.createQuery(sql);
+            query.addParameter("dateTime", dateTime);
+            List<Row> dataList = query.executeAndFetchTable().rows();
+            for (Row row : dataList) {
+                Map<String,Object> map = new HashMap<>();
+                map.put("dateTime",row.getDate("rq"));
+                map.put("code",row.getString("jh"));
+                map.put("type",row.getString("dmmc")); // 停井类型
+                map.put("cause",row.getString("BZ"));  // 停井原因
+                rtnList.add(map);
+            }
+        }
         return rtnList;
     }
 }

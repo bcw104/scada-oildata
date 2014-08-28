@@ -7,6 +7,7 @@ import org.sql2o.Sql2o;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 威尔泰克示功图
@@ -73,4 +74,11 @@ public interface WetkSGTService {
      * @return
      */
     List<VarGroupData> findArrayDataByCodeAndDateTimeAndType(String code, Date startDate, Date endDate, String arrayType);
+
+    /**
+     * 根据日期获取源点库关井数据
+     * @param dateTime
+     * @return
+     */
+    List<Map<String,Object>> findCloseWellDataByDate(Date dateTime);
 }
