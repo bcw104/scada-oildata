@@ -81,4 +81,6 @@ public interface WetkSGTService {
      * @return
      */
     List<Map<String,Object>> findCloseWellDataByDate(Date dateTime);
+
+    int updateEstimateRcylToDB(String code,String cyl,String yl);
 }
