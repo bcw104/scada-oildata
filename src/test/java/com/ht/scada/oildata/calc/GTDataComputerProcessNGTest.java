@@ -52,7 +52,7 @@ public class GTDataComputerProcessNGTest {
         float hanShuiLiang = 90F;
         GTDataComputerProcess instance = new GTDataComputerProcess();
         Map expResult = null;
-        Map result = instance.calcSGTData(weiyi, zaihe, power, chongCi, bengJing, oilDensity, hanShuiLiang);
+        Map result = instance.calcSGTData(weiyi, zaihe, power,null, chongCi, bengJing, oilDensity, hanShuiLiang);
         assertEquals(result, expResult);
         // TODO 检查生成的测试代码并删除失败的默认调用。
         fail("\u6d4b\u8bd5\u7528\u4f8b\u4e3a\u539f\u578b\u3002");

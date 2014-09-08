@@ -32,7 +32,7 @@ public interface WellInfoService {
      * @param 井号
      * @return [rq, hs, 1, bj, dmyymd]
      */
-    List<Map<String, Object>> findBasicCalculateInforsByCode(String code);
+    Map<String, Object> findBasicCalculateInforsByCode(String code);
 
     /**
      * 插入一条self量油信息
