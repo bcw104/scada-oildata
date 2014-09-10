@@ -81,14 +81,14 @@ public class WetkSGTServiceImpl implements WetkSGTService {
         try (Connection con = sql2o.open()) {  //
             con.createQuery(sql)  //
                     .addParameter("ID", CommonUtils.getCode())//
-					.addParameter("JH", code)//
-					.addParameter("CJSJ", cjDate)//
-					.addParameter("GTID", gtId)//
-					.addParameter("CC", CC)//
-					.addParameter("CC1", CC1)//
-					.addParameter("ZDZH", ZDZH)//
-					.addParameter("ZXZH", ZXZH)//
-					.executeUpdate();//
+                    .addParameter("JH", code)//
+                    .addParameter("CJSJ", cjDate)//
+                    .addParameter("GTID", gtId)//
+                    .addParameter("CC", CC)//
+                    .addParameter("CC1", CC1)//
+                    .addParameter("ZDZH", ZDZH)//
+                    .addParameter("ZXZH", ZXZH)//
+                    .executeUpdate();//
         } catch (Exception e) {
             System.out.println("e:" + e.getMessage());//
         }
@@ -98,7 +98,7 @@ public class WetkSGTServiceImpl implements WetkSGTService {
     @Override
     public GTSC findOneGTFXRecordByCode(String code) {
         //String sql = "select q.RCYL1 rcyl1,q.RCYL rcyl,s.JH jh,q.CJSJ cjsj,s.WY wy,q.BGT bgt FROM QYSCZH.SCY_SGT_GTCJ s inner join QYSCZH.SCY_SGT_GTFX q on s.JH=:CODE AND q.SCJSBZ = 1 AND q.JH=s.JH ORDER BY q.CJSJ DESC ";//
-        String sql ="SELECT" +//
+        String sql = "SELECT" +//
                 "  q.RCYL1 rcyl1, " +//
                 "  q.RCYL  rcyl, " +//
                 "  s.JH    jh, " +//
@@ -108,7 +108,7 @@ public class WetkSGTServiceImpl implements WetkSGTService {
                 " FROM QYSCZH.SCY_SGT_GTCJ s LEFT JOIN QYSCZH.SCY_SGT_GTFX q ON q.JH = s.JH AND s.cjsj = q.cjsj AND s.id = q.gtid " +
                 " WHERE s.JH = :CODE and q.cjsj is not null ORDER BY q.CJSJ DESC ";
         try (Connection con = sql2o.open()) {  //
-            org.sql2o.Query query =  con.createQuery(sql).addParameter("CODE", code);
+            org.sql2o.Query query = con.createQuery(sql).addParameter("CODE", code);
             return query.executeAndFetchFirst(GTSC.class);
         }
     }
@@ -234,8 +234,8 @@ public class WetkSGTServiceImpl implements WetkSGTService {
                 VarGroupData varGroupData = new VarGroupData();
                 varGroupData.setDatetime(row.getDate("cjsj"));
                 varGroupData.setCode(row.getString("jh"));
-                float[] wei_yi_array = String2FloatArrayUtil.string2FloatArrayUtil(row.getString("wy"),",");
-                float[] qx_array = String2FloatArrayUtil.string2FloatArrayUtil(row.getString("qx"),",");
+                float[] wei_yi_array = String2FloatArrayUtil.string2FloatArrayUtil(row.getString("wy"), ",");
+                float[] qx_array = String2FloatArrayUtil.string2FloatArrayUtil(row.getString("qx"), ",");
                 Map<String, float[]> map = new HashMap<>();
                 map.put("wei_yi_array", wei_yi_array);
                 map.put("qx_array", qx_array);
@@ -248,8 +248,8 @@ public class WetkSGTServiceImpl implements WetkSGTService {
     }
 
     @Override
-    public List<Map<String,Object>> findCloseWellDataByDate(Date dateTime) {
-        List<Map<String,Object>> rtnList = new ArrayList<>();
+    public List<Map<String, Object>> findCloseWellDataByDate(Date dateTime) {
+        List<Map<String, Object>> rtnList = new ArrayList<>();
 
         String sql = "select a.JH jh,a.RQ rq,b.DMMC dmmc,a.BZ bz FROM YS_DBA01@YDK a left join FLA15@YDK b on a.bzdm=b.dm  where a.RQ=:dateTime " + //
                 " and a.jh in (select code from t_end_tag where type='YOU_JING') and a.BZDM is not null ";
@@ -259,14 +259,33 @@ public class WetkSGTServiceImpl implements WetkSGTService {
             query.addParameter("dateTime", dateTime);
             List<Row> dataList = query.executeAndFetchTable().rows();
             for (Row row : dataList) {
-                Map<String,Object> map = new HashMap<>();
-                map.put("dateTime",row.getDate("rq"));
-                map.put("code",row.getString("jh"));
-                map.put("type",row.getString("dmmc")); // 停井类型
-                map.put("cause",row.getString("BZ"));  // 停井原因
+                Map<String, Object> map = new HashMap<>();
+                map.put("dateTime", row.getDate("rq"));
+                map.put("code", row.getString("jh"));
+                map.put("type", row.getString("dmmc")); // 停井类型
+                map.put("cause", row.getString("BZ"));  // 停井原因
                 rtnList.add(map);
             }
         }
         return rtnList;
+    }
+
+    @Override
+    public int updateEstimateRcylToDB(String code, String cyl, String yl) {
+        Date dateTime = CommonUtils.getTodayZeroHour();
+        String sql = "update T_WELL_DAILY_DATA set cyl=:cyl , yl=:yl where code=:code and date_time=:dateTime";
+        try (Connection con = sql2o.open()) {  //
+            con.createQuery(sql)//
+                    .addParameter("cyl", cyl)//
+                    .addParameter("yl", yl)//
+                    .addParameter("code", code)//
+                    .addParameter("dateTime", dateTime)//
+                    .executeUpdate();
+            con.commit();
+        } catch (Exception e) {
+            return 0;
+        }
+
+        return 1;
     }
 }
