@@ -288,4 +288,72 @@ public class WetkSGTServiceImpl implements WetkSGTService {
 
         return 1;
     }
+
+    @Override
+    public List<Map<String, Object>> getDianJiInfoByCode(String code) {
+        List<Map<String, Object>> rtnList = new ArrayList<>();
+        String sql = "select * from (select cyjxh, djeddl, djxh ,djbh, edgl FROM YS_DGB01@YDK  where JH=:code and djxh is not null order by lrsj desc) where rownum<=1";
+        try (Connection con = sql2o.open()) {  //
+            //List<Map<String, Object>> dataList =  con.createQuery(sql).addParameter("code", code).executeAndFetchTable().asList();
+            //if (dataList != null && !dataList.isEmpty()) {
+            //    return dataList.get(0);
+            //}
+
+            org.sql2o.Query query = con.createQuery(sql);
+            query.addParameter("code", code);
+            List<Row> dataList = query.executeAndFetchTable().rows();
+            if (dataList != null) {
+                for (Row row : dataList) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("cyjxh", row.getString("cyjxh"));
+                    map.put("djeddl", row.getString("djeddl"));
+                    map.put("djxh", row.getString("djxh"));
+                    map.put("djbh", row.getString("djbh"));
+                    map.put("edgl", row.getString("edgl"));
+                    rtnList.add(map);
+                    return rtnList;
+                }
+            }
+
+        } catch (Exception e) {
+            return null;
+        }
+        return null;
+    }
+
+    @Override
+    public List<Map<String, Object>> getEndTagVideoInfoByCode(String code) {
+        List<Map<String, Object>> rtnList = new ArrayList<>();
+        String sql = "SELECT * FROM R_VIDEO where code=:code";
+        try (Connection con = sql2o.open()) {  //
+            org.sql2o.Query query = con.createQuery(sql);
+            query.addParameter("code", code);
+            List<Row> dataList = query.executeAndFetchTable().rows();
+            if (dataList != null) {
+                for (Row row : dataList) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("cameraid", row.getString("cameraid"));
+                    map.put("cameraname", row.getString("cameraname"));
+                    map.put("deviceip", row.getString("deviceip"));
+                    map.put("deviceport", row.getString("deviceport"));
+                    map.put("devicetype", row.getString("devicetype"));
+                    map.put("username", row.getString("user_name"));
+                    map.put("userpwd", row.getString("user_pwd"));
+                    map.put("channelnum", row.getString("channelnum"));
+                    map.put("protocoltype", row.getString("protocoltype"));
+                    map.put("lstreamtype", row.getString("lstreamtype"));
+                    map.put("srvip", row.getString("srvip"));
+                    map.put("port", row.getString("port"));
+                    map.put("cameraindexcode", row.getString("cameraindexcode"));
+                    rtnList.add(map);
+                    return rtnList;
+                }
+            }
+
+        } catch (Exception e) {
+            return null;
+        }
+        return null;
+    }
 }
+
