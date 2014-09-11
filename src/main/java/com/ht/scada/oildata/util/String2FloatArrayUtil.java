@@ -71,4 +71,18 @@ public class String2FloatArrayUtil {
         }
         return jg.replaceFirst(",", "");
     }
+    
+    /**
+     * Object array to float array
+     * @param objects
+     * @return
+     */
+    public static float[] objectArray2FloatArrayUtil(Object[] objects) {
+        float[] rtnArray = new float[objects.length];
+        for (int i = 0; i < objects.length; i++) {
+            rtnArray[i] = (float)objects[i];
+        }
+        return rtnArray;
+    }
+
 }
