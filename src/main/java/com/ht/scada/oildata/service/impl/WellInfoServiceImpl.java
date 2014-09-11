@@ -70,12 +70,12 @@ public class WellInfoServiceImpl implements WellInfoService {
      * @return [rq, hs, 1, bj, dmyymd]
      */
     @Override
-    public List<Map<String, Object>> findBasicCalculateInforsByCode(String code) {
+    public Map<String, Object> findBasicCalculateInforsByCode(String code) {
 
-        String sql = "select s.BJ, s.HS,s.RQ, q.DMYYMD, 1 from ys_dba01@ydk "
-                + "s inner join ys_dab04@ydk q on s.JH=:CODE "
-                + "and S.DYDM = q.DYDM where s.BJ is not null and s.HS "
-                + "is not null and q.DMYYMD is not null order by s.RQ DESC";
+        String sql = "select * from (select s.BJ, s.HS,s.RQ, q.DMYYMD, 1 from ys_dba01@ydk s "
+                + "inner join ys_dab04@ydk q on s.JH=:CODE "
+                + "and s.DYDM = q.DYDM where s.BJ is not null and s.HS "
+                + "is not null and q.DMYYMD is not null order by s.RQ DESC) where rownum<=1";
 
         List<Map<String, Object>> list;
         try (Connection con = sql2o.open()) { //
@@ -84,7 +84,10 @@ public class WellInfoServiceImpl implements WellInfoService {
                     .executeAndFetchTable().asList();
 
         }
-        return list;
+        if(list != null && !list.isEmpty()) {
+            return list.get(0);
+        }
+        return null;
     }
 
     /**

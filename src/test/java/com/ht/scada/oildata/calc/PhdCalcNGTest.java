@@ -43,8 +43,8 @@ public class PhdCalcNGTest {
     public void testDianLiuCalc() {
         System.out.println("dianLiuCalc");
         float expResult = 0.0F;
-        float result = PhdCalc.dianLiuCalc();
-        assertEquals(result, expResult, 0.0);
+//        float result = PhdCalc.dianLiuCalc();
+//        assertEquals(result, expResult, 0.0);
         // TODO 检查生成的测试代码并删除失败的默认调用。
         fail("\u6d4b\u8bd5\u7528\u4f8b\u4e3a\u539f\u578b\u3002");
     }
@@ -59,8 +59,8 @@ public class PhdCalcNGTest {
         int maxFlag = 0;
         int minFlag = 0;
         float expResult = 0.0F;
-        float result = PhdCalc.gongLvCalc(power, maxFlag, minFlag);
-        assertEquals(result, expResult, 0.0);
+        float result[] = PhdCalc.gongLvCalc(power, maxFlag, minFlag);
+        assertEquals(result[0], expResult, 0.0);
         // TODO 检查生成的测试代码并删除失败的默认调用。
         fail("\u6d4b\u8bd5\u7528\u4f8b\u4e3a\u539f\u578b\u3002");
     }

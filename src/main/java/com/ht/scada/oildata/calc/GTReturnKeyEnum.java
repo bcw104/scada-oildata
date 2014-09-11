@@ -21,7 +21,8 @@ public enum GTReturnKeyEnum {
     POINT_AY("左上载荷", "Float"),POINT_BY("上死点载荷", "Float"),POINT_CY("右下载荷", "Float"),POINT_DY("下死点载荷", "Float"),
     PING_HENG_DU("平衡度","Float"),
     NENG_HAO_SHANG("上冲程能耗", "Float"),NENG_HAO_XIA("下冲程能耗", "Float"),NENG_HAO_RI("日耗电量","Float"),
-    
+    PING_HENG_DU_DL("电流平衡度", "Float"),DL_SHANG("上行电流", "Float"),DL_XIA("下行电流", "Float"),
+    GL_SHANG("上行功率","Float"), GL_XIA("下行功率","Float"),
     ;
     
     

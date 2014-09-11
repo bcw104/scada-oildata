@@ -17,7 +17,7 @@ public class GTDataComputerProcess implements GTDataComputer{
 	private int faultLevel = 0;	//故障严重程度，0为无，10为最严重
 
         @Override
-	public Map<GTReturnKeyEnum, Object> calcSGTData(float weiyi[], float zaihe[],float power[],
+	public Map<GTReturnKeyEnum, Object> calcSGTData(float weiyi[], float zaihe[],float power[],float dl[],
 			float chongCi, float bengJing,	float oilDensity, float hanShuiLiang) {
 
 		final int n = weiyi.length; // 数据个数
@@ -567,19 +567,39 @@ public class GTDataComputerProcess implements GTDataComputer{
 //		}
                 
                 float phd = 0;
+                float upGl = 0; //上行平均功率
+                float downGl = 0;   //下行平均功率
                 float upPower = 0;
                 float downPower = 0;
                 float riPower = 0;
                 if(power != null) {
-                    phd = PhdCalc.gongLvCalc(power, maxFlag, minFlag);
+                    float[] result = PhdCalc.gongLvCalc(power, maxFlag, minFlag);
+                    phd = result[0];
+                    upGl = result[1];
+                    downGl = result[2];
                     upPower = NengHaoCalc.nengHaoShang(power, maxFlag, minFlag, chongCi);
                     downPower = NengHaoCalc.nengHaoXia(power, maxFlag, minFlag, chongCi);
                     riPower = (upPower+downPower)*(chongCi*24*60);
                 }
-                resultMap.put(GTReturnKeyEnum.PING_HENG_DU, phd);   //平衡度
+                resultMap.put(GTReturnKeyEnum.PING_HENG_DU, phd);   //平衡度（功率法）
+                resultMap.put(GTReturnKeyEnum.GL_SHANG, upGl);  //上行平均功率
+                resultMap.put(GTReturnKeyEnum.GL_XIA, downGl);  //下行平均功率
                 resultMap.put(GTReturnKeyEnum.NENG_HAO_SHANG, upPower); //上冲程能耗
                 resultMap.put(GTReturnKeyEnum.NENG_HAO_XIA, downPower); //下冲程能耗
                 resultMap.put(GTReturnKeyEnum.NENG_HAO_RI, riPower);    //日耗电量
+                
+                float phd1 = 0;
+                float upDl = 0;
+                float downDl = 0;
+                if(dl != null) {
+                    Map<String,Float> map = PhdCalc.dianLiuCalc(dl, maxFlag, minFlag);
+                    phd1 = map.get("phd");
+                    upDl = map.get("sxdl");
+                    downDl = map.get("xxdl");
+                }
+                resultMap.put(GTReturnKeyEnum.PING_HENG_DU_DL, phd1);   //电流平衡度
+                resultMap.put(GTReturnKeyEnum.DL_SHANG, upDl); //上行电流
+                resultMap.put(GTReturnKeyEnum.DL_XIA, downDl); //下行电流
 		
 
 		return resultMap;
