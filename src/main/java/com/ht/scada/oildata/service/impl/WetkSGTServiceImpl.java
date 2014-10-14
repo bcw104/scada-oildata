@@ -333,6 +333,7 @@ public class WetkSGTServiceImpl implements WetkSGTService {
                 for (Row row : dataList) {
                     Map<String, Object> map = new HashMap<>();
                     map.put("cameraid", row.getString("cameraid"));
+                    map.put("monitorid", row.getString("monitorid"));
                     map.put("cameraname", row.getString("cameraname"));
                     map.put("deviceip", row.getString("deviceip"));
                     map.put("deviceport", row.getString("deviceport"));
