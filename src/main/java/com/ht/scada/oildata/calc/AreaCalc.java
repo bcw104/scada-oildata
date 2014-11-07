@@ -7,7 +7,8 @@ package com.ht.scada.oildata.calc;
  */
 public class AreaCalc {
 	public float getGTArea(float[] weiyi, float[] zaihe, int maxFlag, int minFlag) {
-		int standardAreaNum = 25;
+//		int standardAreaNum = 25;
+		int standardAreaNum = 8;
 		int n = weiyi.length;
 		// 将上下行程分别求出每个区间内载荷的平均值
 		float space = (weiyi[maxFlag] - weiyi[minFlag]) / standardAreaNum;
