@@ -83,4 +83,13 @@ public interface WetkSGTService {
     List<Map<String,Object>> findCloseWellDataByDate(Date dateTime);
 
     int updateEstimateRcylToDB(String code,String cyl,String yl);
+
+    /**
+     * 获取油井的电机信息
+     * @param code
+     * @return
+     */
+    List<Map<String, Object>> getDianJiInfoByCode(String code);
+
+    List<Map<String, Object>> getEndTagVideoInfoByCode(String code);
 }

@@ -18,8 +18,14 @@ public class GTSC {
     private float ZDZH;  //  最大载荷
     private float ZXZH;  //  最小载荷
     private float JSBZ;  //  计算标记（0：参与计算 1：不参与计算）
-    private float CC;   // 冲程
-    private float CC1;   // 冲次
+    /**
+     * 冲程
+     */
+    private float CC;
+    /**
+     * 冲次
+     */
+    private float CC1;
 
     public float getRCYL1() {
         return RCYL1;
