@@ -29,7 +29,7 @@ public interface WetkSGTService {
      * @param code 井号
      * @param cjDate 采集时间
      */
-    void addOneGTFXRecord(String gtId,String code,Date cjDate,float cc,float cc1,float zdzh,float zxzh);
+    void addOneGTFXRecord(String gtId,String code,Date cjDate,float cc,float cc1,float zdzh,float zxzh, Float BJ, Float HS, Float DMYYMD, Float JSXS);
 
     /**
      * 获取单井功图计产数据(产液量、产油量)

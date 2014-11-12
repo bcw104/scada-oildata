@@ -73,9 +73,9 @@ public class WellInfoServiceImpl implements WellInfoService {
     public Map<String, Object> findBasicCalculateInforsByCode(String code) {
 
         String sql = "select * from (select s.BJ, s.HS,s.RQ, q.DMYYMD, 1 from ys_dba01@ydk s "
-                + "inner join ys_dab04@ydk q on s.JH=:CODE "
-                + "and s.DYDM = q.DYDM where s.BJ is not null and s.HS "
-                + "is not null and q.DMYYMD is not null order by s.RQ DESC) where rownum<=1";
+                + "inner join ys_dfc05@ydk q on s.JH=:CODE "
+                + "and q.jcd=:CODE  where s.BJ is not null and s.HS "
+                + "is not null and q.DMYYMD is not null order by s.RQ DESC, q.HYRQ DESC) where rownum<=1";
 
         List<Map<String, Object>> list;
         try (Connection con = sql2o.open()) { //

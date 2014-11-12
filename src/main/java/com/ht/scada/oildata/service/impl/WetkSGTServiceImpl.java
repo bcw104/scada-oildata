@@ -74,9 +74,9 @@ public class WetkSGTServiceImpl implements WetkSGTService {
     }
 
     @Override
-    public void addOneGTFXRecord(String gtId, String code, Date cjDate, float CC, float CC1, float ZDZH, float ZXZH) {
-        String sql = "INSERT INTO QYSCZH.SCY_SGT_GTFX (ID, JH, CJSJ, GTID, CC, CC1, ZDZH, ZXZH) " //
-                + "values (:ID,:JH,:CJSJ,:GTID,:CC,:CC1,:ZDZH,:ZXZH) ";//
+    public void addOneGTFXRecord(String gtId, String code, Date cjDate, float CC, float CC1, float ZDZH, float ZXZH, Float BJ, Float HS, Float YYMD,Float JSXS) {
+        String sql = "INSERT INTO QYSCZH.SCY_SGT_GTFX (ID, JH, CJSJ, GTID, CC, CC1, ZDZH, ZXZH, BJ, HS, YYMD, JSXS) " //
+                + "values (:ID,:JH,:CJSJ,:GTID,:CC,:CC1,:ZDZH,:ZXZH, :BJ, :HS, :YYMD,:JSXS) ";//
 
         try (Connection con = sql2o.open()) {  //
             con.createQuery(sql)  //
@@ -88,6 +88,10 @@ public class WetkSGTServiceImpl implements WetkSGTService {
                     .addParameter("CC1", CC1)//
                     .addParameter("ZDZH", ZDZH)//
                     .addParameter("ZXZH", ZXZH)//
+                    .addParameter("BJ", BJ)//
+                    .addParameter("HS", HS)//
+                    .addParameter("YYMD", YYMD)//
+                    .addParameter("JSXS", JSXS)
                     .executeUpdate();//
         } catch (Exception e) {
             System.out.println("e:" + e.getMessage());//
