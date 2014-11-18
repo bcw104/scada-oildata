@@ -290,6 +290,25 @@ public class WetkSGTServiceImpl implements WetkSGTService {
     }
 
     @Override
+    public int updateEstimateRcylToYDDB(String code, String rcyl1, String rcyl) {
+        Date dateTime = CommonUtils.getTodayZeroHour();
+        String sql = "update QYSCZH.SCY_SRD_YJ set RCYL1=:rcyl1 , RCYL=:rcyl where JH=:code and RQ=:dateTime";
+        try (Connection con = sql2o.open()) {  //
+            con.createQuery(sql)//
+                    .addParameter("rcyl1", rcyl1)//
+                    .addParameter("rcyl", rcyl)//
+                    .addParameter("code", code)//
+                    .addParameter("dateTime", dateTime)//
+                    .executeUpdate();
+            con.commit();
+        } catch (Exception e) {
+            return 0;
+        }
+
+        return 1;
+    }
+
+    @Override
     public List<Map<String, Object>> getDianJiInfoByCode(String code) {
         List<Map<String, Object>> rtnList = new ArrayList<>();
         String sql = "select * from (select cyjxh, djeddl, djxh ,djbh, edgl FROM YS_DGB01@YDK  where JH=:code and djxh is not null order by lrsj desc) where rownum<=1";

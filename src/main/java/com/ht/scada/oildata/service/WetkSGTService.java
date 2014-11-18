@@ -82,7 +82,23 @@ public interface WetkSGTService {
      */
     List<Map<String,Object>> findCloseWellDataByDate(Date dateTime);
 
+    /**
+     * 更新威尔泰克数据表中油井的产液量和产油量
+     * @param code
+     * @param cyl
+     * @param yl
+     * @return
+     */
     int updateEstimateRcylToDB(String code,String cyl,String yl);
+
+    /**
+     * 更新源点数据表中油井的产液量和产油量
+     * @param code
+     * @param cyl
+     * @param yl
+     * @return
+     */
+    int updateEstimateRcylToYDDB(String code,String cyl,String yl);
 
     /**
      * 获取油井的电机信息
