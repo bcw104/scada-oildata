@@ -69,11 +69,6 @@
     <dependencies>
         <dependency>
             <groupId>com.ht.scada</groupId>
-            <artifactId>scada-security</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.ht.scada</groupId>
             <artifactId>scada-tag</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -97,6 +92,11 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ht</groupId>
+            <artifactId>scada-oildata-calc</artifactId>
+            <version>v1.0</version>
         </dependency>
     </dependencies>
 
