@@ -19,3 +19,5 @@
 /.classpath
 
 /.project
+/test-output
+/*.iml
