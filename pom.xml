@@ -97,6 +97,7 @@
             <groupId>com.ht</groupId>
             <artifactId>scada-oildata-calc</artifactId>
             <version>v1.0</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 
