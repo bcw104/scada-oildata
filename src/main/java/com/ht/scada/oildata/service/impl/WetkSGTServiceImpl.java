@@ -14,6 +14,7 @@ import org.sql2o.data.Row;
 
 import javax.inject.Inject;
 import java.util.*;
+import javax.inject.Named;
 
 /**
  * 需要写sql语句实时
@@ -25,6 +26,10 @@ import java.util.*;
 public class WetkSGTServiceImpl implements WetkSGTService {
     @Inject
     protected Sql2o sql2o;
+    
+//    @Inject
+//    @Named("sql2o2")
+//    protected Sql2o sql2o2;
 
     @Override
     public Sql2o getSql2o() {
@@ -37,13 +42,12 @@ public class WetkSGTServiceImpl implements WetkSGTService {
         this.sql2o = sql2o;
     }
 
-
     @Override
     public void addOneRecord(WetkSGT wetkSGT) {
-        String sql = "Insert into QYSCZH.SCY_SGT_GTCJ (ID,JH,CJSJ,CC,CC1,SXCC1,XXCC1,WY,DL,GL," //
-                + "ZH,BPQSCGL,ZJ,ZDZH,ZXZH,BZGT,GLYS,YGGL,WGGL) " //
-                + "values ( :ID, :JH, :CJSJ, :CC, :CC1, :SXCC1, :XXCC1, :WY, :DL, :GL, "//
-                + " :ZH, :BPQSCGL, :ZJ, :ZDZH, :ZXZH, :BZGT, :GLYS, :YGGL, :WGGL) ";//
+        String sql = "Insert into QYSCZH.SCY_SGT_GTCJ (ID,JH,CJSJ,CC,CC1,SXCC1,XXCC1,WY,DL,GL," 
+                + "ZH,BPQSCGL,ZJ,ZDZH,ZXZH,BZGT,GLYS,YGGL,WGGL) " 
+                + "values ( :ID, :JH, :CJSJ, :CC, :CC1, :SXCC1, :XXCC1, :WY, :DL, :GL, "
+                + " :ZH, :BPQSCGL, :ZJ, :ZDZH, :ZXZH, :BZGT, :GLYS, :YGGL, :WGGL) ";
         //int lastId = getAllRecords().size();    // 获得当前 CS端登陆者的最大ID， 2014.6.24日迁移数据库时添加 //
         try (Connection con = sql2o.open()) {  //
             con.createQuery(sql)  //
@@ -69,7 +73,33 @@ public class WetkSGTServiceImpl implements WetkSGTService {
                     .executeUpdate();//
         } catch (Exception e) {
             System.out.println("e:" + e.getMessage());//
-        }//
+        }
+        
+//        try (Connection con2 = sql2o2.open()) {  //
+//            con2.createQuery(sql)  //
+//                    .addParameter("ID", wetkSGT.getID()) //
+//                    .addParameter("JH", wetkSGT.getJH())//
+//                    .addParameter("CJSJ", wetkSGT.getCJSJ())//
+//                    .addParameter("CC", wetkSGT.getCC())//
+//                    .addParameter("CC1", wetkSGT.getCC1())//
+//                    .addParameter("SXCC1", wetkSGT.getSXCC1())//
+//                    .addParameter("XXCC1", wetkSGT.getXXCC1())//
+//                    .addParameter("WY", wetkSGT.getWY())//
+//                    .addParameter("DL", wetkSGT.getDL())//
+//                    .addParameter("GL", wetkSGT.getGL())//
+//                    .addParameter("ZH", wetkSGT.getZH())//
+//                    .addParameter("BPQSCGL", wetkSGT.getBPQSCGL())//
+//                    .addParameter("ZJ", wetkSGT.getZJ())//
+//                    .addParameter("ZDZH", wetkSGT.getZDZH())//
+//                    .addParameter("ZXZH", wetkSGT.getZXZH())//
+//                    .addParameter("BZGT", wetkSGT.getBZGT())//
+//                    .addParameter("GLYS", wetkSGT.getGLYS())//
+//                    .addParameter("YGGL", wetkSGT.getYGGL())//
+//                    .addParameter("WGGL", wetkSGT.getWGGL())//
+//                    .executeUpdate();//
+//        } catch (Exception e) {
+//            System.out.println("e:" + e.getMessage());//
+//        }
 
     }
 
@@ -77,7 +107,7 @@ public class WetkSGTServiceImpl implements WetkSGTService {
     public void addOneGTFXRecord(String gtId, String code, Date cjDate, float CC, float CC1, float ZDZH, float ZXZH, Float BJ, Float HS, Float YYMD,Float JSXS) {
         String sql = "INSERT INTO QYSCZH.SCY_SGT_GTFX (ID, JH, CJSJ, GTID, CC, CC1, ZDZH, ZXZH, BJ, HS, YYMD, JSXS) " //
                 + "values (:ID,:JH,:CJSJ,:GTID,:CC,:CC1,:ZDZH,:ZXZH, :BJ, :HS, :YYMD,:JSXS) ";//
-
+        
         try (Connection con = sql2o.open()) {  //
             con.createQuery(sql)  //
                     .addParameter("ID", CommonUtils.getCode())//
@@ -96,7 +126,6 @@ public class WetkSGTServiceImpl implements WetkSGTService {
         } catch (Exception e) {
             System.out.println("e:" + e.getMessage());//
         }
-
     }
 
     @Override
